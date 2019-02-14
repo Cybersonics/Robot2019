@@ -14,7 +14,7 @@ public class PlaceGear extends Command {
     private boolean isPlaced = false;
     
 	public PlaceGear() {
-		requires(RobotMap.drive);
+		requires(Robot.drive);
 		originHeading = RobotMap.navX.getFusedHeading();
 	
 	}
@@ -35,7 +35,7 @@ public class PlaceGear extends Command {
 			isPlaced = true;
 		}*/
 		
-		RobotMap.drive.swerveDrive(strafe, forward, omega);
+		Robot.drive.swerveDrive(strafe, forward, omega);
 		if (isPlaced) {
 			
 		}

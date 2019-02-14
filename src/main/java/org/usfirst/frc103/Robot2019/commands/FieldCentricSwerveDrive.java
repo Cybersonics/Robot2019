@@ -21,7 +21,7 @@ public class FieldCentricSwerveDrive extends Command {
     private double rightPow = 1.0;
 
 	public FieldCentricSwerveDrive() {
-        requires(RobotMap.drive);
+        requires(Robot.drive);
         //originHeading = RobotMap.navX.getFusedHeading();
     }
 	
@@ -94,7 +94,7 @@ public class FieldCentricSwerveDrive extends Command {
     	//	originLocked = false;
     	}
         
-        RobotMap.drive.swerveDrive(strafe, forward, omega);
+        Robot.drive.swerveDrive(strafe, forward, omega);
     }
 
     @Override

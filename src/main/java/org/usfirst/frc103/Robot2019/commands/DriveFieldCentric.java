@@ -37,7 +37,7 @@ public class DriveFieldCentric extends Command {
 		
 		isDone = false;
 		isDoneRotate = false;
-		RobotMap.drive.encoderReset();
+		Robot.drive.encoderReset();
 	}
 	
 	@Override
@@ -76,7 +76,7 @@ public class DriveFieldCentric extends Command {
 		strafe = strafe * Math.cos(originCorrection) + forward * Math.sin(originCorrection);
 		forward = temp;
 		
-		RobotMap.drive.swerveDrive(strafe, forward, omega);
+		Robot.drive.swerveDrive(strafe, forward, omega);
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class DriveFieldCentric extends Command {
 
     @Override
 	protected void end() {
-		RobotMap.drive.swerveDrive(0, 0, 0);
+		Robot.drive.swerveDrive(0, 0, 0);
     }
 
     @Override

@@ -27,6 +27,8 @@ import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.XboxController;
 import org.usfirst.frc103.Robot2019.subsystems.Drive;
 import org.usfirst.frc103.Robot2019.subsystems.Pneumatics;
+import org.usfirst.frc103.Robot2019.subsystems.Elevators;
+import org.usfirst.frc103.Robot2019.subsystems.Intake;
 
 
 /**
@@ -50,13 +52,22 @@ public class RobotMap {
  
     public static Ultrasonic ultrasonic;
 
-    public static Pneumatics pneumatics;
-
     public static DoubleSolenoid hatchPanelSolenoid;
     public static DoubleSolenoid armLockSolenoid;
 
+    public static TalonSRX elevatorFront;
+    public static TalonSRX elevatorRear;
 
+    public static TalonSRX intakeMotor;
+
+    public static TalonSRX armMotor;
+
+    /*
+    public static Pneumatics pneumatics;
+    public static Elevators elevator;
     public static Drive drive;
+    public static Intake intake;
+    */
 
     public static Joystick leftJoy;
     public static Joystick rightJoy;
@@ -66,6 +77,8 @@ public class RobotMap {
     private static final int DRIVE_I_ZONE = 0, DRIVE_ALLOWABLE_ERROR = 0, DRIVE_MEASUREMENT_WINDOW = 1;
     private static final VelocityMeasPeriod DRIVE_MEASUREMENT_PERIOD = VelocityMeasPeriod.Period_20Ms;
     private static final double STEER_P = 10.0, STEER_I = 0.02, STEER_D = 0.0;
+    private static final double ELEVATOR_P = 10.0, ELEVATOR_I = 0.02, ELEVATOR_D = 0.0;
+    private static final double ARM_P = 10.0, ARM_I = 0.02, ARM_D = 0.0, ARM_F = 0.0;
     private static final int STATUS_FRAME_PERIOD = 5;
 
     public static void init() {
@@ -188,12 +201,40 @@ public class RobotMap {
         steerRightRear.setNeutralMode(NeutralMode.Brake);
         steerRightRear.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
 
+        elevatorFront = new TalonSRX(20);
+        elevatorFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        elevatorFront.config_kP(0, ELEVATOR_P, 0);
+        elevatorFront.config_kI(0, ELEVATOR_I, 0);
+        elevatorFront.config_kD(0, ELEVATOR_D, 0);
+        elevatorFront.config_IntegralZone(0, 100, 0);
+        elevatorFront.configAllowableClosedloopError(0, 5, 0);
+        elevatorFront.setNeutralMode(NeutralMode.Brake);
+        elevatorFront.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
+
+        elevatorRear = new TalonSRX(21);
+
+        intakeMotor = new TalonSRX(22);
+
+        armMotor = new TalonSRX(23);
+        armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        armMotor.config_kP(0, ARM_P, 0);
+        armMotor.config_kI(0, ARM_I, 0);
+        armMotor.config_kD(0, ARM_D, 0);
+        armMotor.config_kF(0, ARM_F, 0);
+        armMotor.config_IntegralZone(0, 100, 0);
+        armMotor.configAllowableClosedloopError(0, 5, 0);
+        armMotor.setNeutralMode(NeutralMode.Brake);
+        armMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
+
         hatchPanelSolenoid = new DoubleSolenoid(0, 1);
         armLockSolenoid = new DoubleSolenoid(2, 3);
-        pneumatics = new Pneumatics();
 
-        
+        /*
+        elevator = new Elevators();
+        pneumatics = new Pneumatics();
         drive = new Drive();
+        intake = new Intake();
+        */
 
         controller = new XboxController(2);
         leftJoy = new Joystick(0);

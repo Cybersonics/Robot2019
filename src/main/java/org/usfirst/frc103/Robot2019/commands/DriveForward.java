@@ -20,7 +20,7 @@ public class DriveForward extends Command {
 	//public static double angle = 60.0;
     
 	public DriveForward(double orientation, double distance) {
-		requires(RobotMap.drive);
+		requires(Robot.drive);
 		this.orientation = orientation;
 		this.distance = distance;
 	}
@@ -37,7 +37,7 @@ public class DriveForward extends Command {
 		
 		isDone = false;
 		isDoneRotate = false;
-		RobotMap.drive.encoderReset();
+		Robot.drive.encoderReset();
 	}
 	
 	@Override
@@ -80,7 +80,7 @@ public class DriveForward extends Command {
 		strafe = strafe * Math.cos(originCorrection) + forward * Math.sin(originCorrection);
 		forward = temp;
 		
-		RobotMap.drive.swerveDrive(strafe, forward, omega);
+		Robot.drive.swerveDrive(strafe, forward, omega);
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class DriveForward extends Command {
 
     @Override
 	protected void end() {
-		RobotMap.drive.swerveDrive(0, 0, 0);
+		Robot.drive.swerveDrive(0, 0, 0);
     }
 
     @Override

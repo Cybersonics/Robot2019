@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj.command.Command;
 public class SwerveDrive extends Command {
 
     public SwerveDrive() {
-        requires(RobotMap.drive);
+        requires(Robot.drive);
     }
 
     @Override
 	protected void execute() {
 		double vX = RobotMap.leftJoy.getX(), vY = -RobotMap.leftJoy.getY();
         double omega = RobotMap.rightJoy.getX() / 30.0;
-        RobotMap.drive.swerveDrive(vX, vY, omega);
+        Robot.drive.swerveDrive(vX, vY, omega);
     }
 
     @Override

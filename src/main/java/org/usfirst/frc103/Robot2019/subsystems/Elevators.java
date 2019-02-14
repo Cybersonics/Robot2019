@@ -3,9 +3,9 @@ package org.usfirst.frc103.Robot2019.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-import org.usfirst.frc103.Robot2019.commands.PneumaticControl;
+import org.usfirst.frc103.Robot2019.commands.ElevatorControl;
 
-public class Pneumatics extends Subsystem {
+public class Elevators extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -13,6 +13,6 @@ public class Pneumatics extends Subsystem {
   protected void initDefaultCommand() {
     
     // Set the default command for a subsystem here.
-    setDefaultCommand(new PneumaticControl());
+    setDefaultCommand(new ElevatorControl());
   }
 }

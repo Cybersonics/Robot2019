@@ -12,17 +12,17 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 
 public class PneumaticControl extends Command {
-  boolean aPressed;
+  boolean bPressed;
   
   public PneumaticControl() {
-    requires(RobotMap.pneumatics);
+    requires(Robot.pneumatics);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
 
   @Override
   protected void initialize() {
-    aPressed = false;
+    bPressed = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -34,28 +34,29 @@ public class PneumaticControl extends Command {
       RobotMap.hatchPanelSolenoid.set(Value.kReverse);
     }
 
+    /*
     if (RobotMap.controller.getBButtonPressed()){
       RobotMap.armLockSolenoid.set(Value.kReverse);
     } else if(RobotMap.controller.getBButtonReleased()) {
       RobotMap.armLockSolenoid.set(Value.kForward);
     }
-    /*
-    if(RobotMap.controller.getAButton() && !aPressed){
-      RobotMap.hatchPanelSolenoid.set(Value.kForward);
-      if(RobotMap.controller.getAButtonReleased()){
-        aPressed = true;
+    */
+
+    if(RobotMap.controller.getBButton() && !bPressed){
+      RobotMap.armLockSolenoid.set(Value.kForward);
+      if(RobotMap.controller.getBButtonReleased()){
+        bPressed = true;
       }
     }
-    else if(RobotMap.controller.getAButton() && aPressed){
-      RobotMap.hatchPanelSolenoid.set(Value.kReverse);
-      if(RobotMap.controller.getAButtonReleased()){
-        aPressed = false;
+    else if(RobotMap.controller.getBButton() && bPressed){
+      RobotMap.armLockSolenoid.set(Value.kReverse);
+      if(RobotMap.controller.getBButtonReleased()){
+        bPressed = false;
       }
     }
     else {
-      RobotMap.hatchPanelSolenoid.set(Value.kOff);
+      RobotMap.armLockSolenoid.set(Value.kOff);
     }
-    */
   }
 
   // Make this return true when this Command no longer needs to run execute()

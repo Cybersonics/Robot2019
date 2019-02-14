@@ -10,6 +10,8 @@ import static org.usfirst.frc103.Robot2019.RobotMap.steerLeftRear;
 import static org.usfirst.frc103.Robot2019.RobotMap.steerRightFront;
 import static org.usfirst.frc103.Robot2019.RobotMap.steerRightRear;
 
+import static org.usfirst.frc103.Robot2019.RobotMap.elevatorFront;
+
 import static org.usfirst.frc103.Robot2019.RobotMap.navX;
 
 import java.util.List;
@@ -30,6 +32,11 @@ import org.usfirst.frc103.Robot2019.commands.RightDriveForwardSpinSequence;
 //import org.usfirst.frc103.Robot2019.commands.VisionAutoSequence;
 
 import org.usfirst.frc103.Robot2019.subsystems.Drive;
+import org.usfirst.frc103.Robot2019.subsystems.Pneumatics;
+import org.usfirst.frc103.Robot2019.subsystems.Elevators;
+import org.usfirst.frc103.Robot2019.subsystems.Intake;
+
+import org.usfirst.frc103.Robot2019.subsystems.Drive;
 
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -41,15 +48,19 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 public class Robot extends TimedRobot {
 	
 	SendableChooser<Command> autonomousChooser;
 	Command autonomousCommand;
 
-
     public static double zeroHeading;
     
+    public static Pneumatics pneumatics = new Pneumatics();
+    public static Elevators elevator = new Elevators();
+    public static Drive drive = new Drive();
+    public static Intake intake = new Intake();
+
+
     @Override
 	public void robotInit() {
     	RobotMap.init();
@@ -75,7 +86,8 @@ public class Robot extends TimedRobot {
     @Override
 	public void disabledPeriodic() {
         Scheduler.getInstance().run();
-        RobotMap.drive.encoderReset();
+        //RobotMap.drive.encoderReset();
+        drive.encoderReset();
         
         updateDashboard();
     }
@@ -139,7 +151,9 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("NavX Yaw", navX.getYaw());
     	//SmartDashboard.putNumber("NavX X Displacement", navX.getDisplacementX());
     	//SmartDashboard.putNumber("NavX Y Displacement", navX.getDisplacementY());
-    	SmartDashboard.putNumber("ZeroHeading", zeroHeading);
+        SmartDashboard.putNumber("ZeroHeading", zeroHeading);
+        
+        SmartDashboard.putNumber("Front Elevator", elevatorFront.getSelectedSensorPosition(0));
 
     }
     

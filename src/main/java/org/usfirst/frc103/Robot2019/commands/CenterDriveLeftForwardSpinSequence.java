@@ -1,14 +1,15 @@
 package org.usfirst.frc103.Robot2019.commands;
 
 import org.usfirst.frc103.Robot2019.RobotMap;
-
+import org.usfirst.frc103.Robot2019.Robot
+;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class CenterDriveLeftForwardSpinSequence extends CommandGroup {
 	
 	public CenterDriveLeftForwardSpinSequence() {
-		requires(RobotMap.drive);
-		
+		//requires(RobotMap.drive);
+		requires(Robot.drive);
 		
 	//	addSequential(new VisionPlaceGear(0.0));
 	//	addSequential(new VisionLeaveGear());
