@@ -13,41 +13,25 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
+import org.usfirst.frc103.Robot2019.OI;
 
-public class ElevatorControl extends Command {
-  
-  public static final double DEADZONE = 0.05;
 
-  
-  public ElevatorControl() {
-    // Use requires() here to declare subsystem dependencies
-    //requires(RobotMap.elevator);
-    requires(Robot.elevator);
+public class ElevatorRearControl extends Command {
+  boolean rearLiftLocked;
+    
+  public ElevatorRearControl() {
+    requires(Robot.elevatorRear);
   }
 
   @Override
   protected void initialize() {
-    
+    rearLiftLocked = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-    double frontLift = RobotMap.controller.getY(Hand.kRight);
-    if (Math.abs(frontLift) < DEADZONE){
-      RobotMap.elevatorFront.set(ControlMode.PercentOutput, 0.0);
-    } else {
-      RobotMap.elevatorFront.set(ControlMode.PercentOutput, -frontLift);
-    }
-
-    double rearLift = RobotMap.controller.getY(Hand.kLeft);
-    if (Math.abs(rearLift) < DEADZONE){
-      RobotMap.elevatorRear.set(ControlMode.PercentOutput, 0.0);
-    } else {
-      RobotMap.elevatorRear.set(ControlMode.PercentOutput, rearLift);
-    }
-
+    Robot.elevatorRear.setElevatorRear(OI.controller.getY(Hand.kLeft), rearLiftLocked);
   }
 
   // Make this return true when this Command no longer needs to run execute()

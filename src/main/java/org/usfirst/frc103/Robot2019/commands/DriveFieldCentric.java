@@ -51,10 +51,10 @@ public class DriveFieldCentric extends Command {
 			orientationError -= 360.0 * Math.signum(orientationError);
     	}
 		
-		if ((Math.abs(RobotMap.driveLeftFront.getSelectedSensorPosition(0)) < distance) &&
-				(Math.abs(RobotMap.driveRightFront.getSelectedSensorPosition(0)) < distance) &&
-				(Math.abs(RobotMap.driveLeftRear.getSelectedSensorPosition(0)) < distance) &&
-				(Math.abs(RobotMap.driveRightRear.getSelectedSensorPosition(0)) < distance)) {
+		if ((Math.abs(Robot.drive.getDriveLFEncoder()) < distance) &&
+				(Math.abs(Robot.drive.getDriveLREncoder()) < distance) &&
+				(Math.abs(Robot.drive.getDriveRFEncoder()) < distance) &&
+				(Math.abs(Robot.drive.getDriveRREncoder()) < distance)) {
 			
 			forward = 0.4;//0.35
 		} else {
