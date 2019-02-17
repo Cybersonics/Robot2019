@@ -28,34 +28,11 @@ public class PneumaticControl extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (RobotMap.controller.getAButtonPressed()){
-      RobotMap.hatchPanelSolenoid.set(Value.kForward);
-    } else if(RobotMap.controller.getAButtonReleased()) {
-      RobotMap.hatchPanelSolenoid.set(Value.kReverse);
-    }
-
-    /*
-    if (RobotMap.controller.getBButtonPressed()){
-      RobotMap.armLockSolenoid.set(Value.kReverse);
-    } else if(RobotMap.controller.getBButtonReleased()) {
-      RobotMap.armLockSolenoid.set(Value.kForward);
-    }
-    */
-
-    if(RobotMap.controller.getBButton() && !bPressed){
-      RobotMap.armLockSolenoid.set(Value.kForward);
-      if(RobotMap.controller.getBButtonReleased()){
-        bPressed = true;
-      }
-    }
-    else if(RobotMap.controller.getBButton() && bPressed){
-      RobotMap.armLockSolenoid.set(Value.kReverse);
-      if(RobotMap.controller.getBButtonReleased()){
-        bPressed = false;
-      }
-    }
-    else {
-      RobotMap.armLockSolenoid.set(Value.kOff);
+    //Robot.pneumatics.hatchPanel();
+    if (Robot.oi.getAButtonPress()) {
+      Robot.pneumatics.setHatchpanel();
+    } else if (Robot.oi.getAButtonRelease()) {
+      Robot.pneumatics.resetHatchPanel();
     }
   }
 

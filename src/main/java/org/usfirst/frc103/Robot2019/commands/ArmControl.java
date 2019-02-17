@@ -2,41 +2,45 @@ package org.usfirst.frc103.Robot2019.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import org.usfirst.frc103.Robot2019.Robot;
-import org.usfirst.frc103.Robot2019.RobotMap;
-import org.usfirst.frc103.Robot2019.subsystems.Intake;
+import org.usfirst.frc103.Robot2019.OI;
+import org.usfirst.frc103.Robot2019.subsystems.Arm;
 
-import edu.wpi.first.wpilibj.XboxController;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
-import org.usfirst.frc103.Robot2019.OI;
+public class ArmControl extends Command {
+  boolean armLock;
 
-
-public class IntakeControl extends Command {
-  
-  public IntakeControl() {
-    // Use requires() here to declare subsystem dependencies
-    requires(Robot.intake);
+  public ArmControl() {
+    requires(Robot.arm);
   }
 
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    
+    armLock = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (OI.leftJoy.getRawButton(2)) {
-      Robot.intake.climbIntake();
-    } else {
-      Robot.intake.intakeRun(OI.controller.getTriggerAxis(Hand.kLeft), OI.controller.getTriggerAxis(Hand.kRight));
+
+    if (Robot.oi.getBButtonn() && !armLock) {
+      //.Robot.arm.setArmLock(Value.kForward);
+      Robot.arm.setArmPin();
+      if (Robot.oi.getBButtonRelease()){
+        armLock = true;
+      }
+    } else if (Robot.oi.getBButtonn() && armLock) {
+      //Robot.arm.setArmLock(Value.kReverse);
+      Robot.arm.resetArmPin();
+      if (Robot.oi.getBButtonRelease()){
+        armLock = false;
+      }
     }
+
+    Robot.arm.armPosition(OI.controller.getBumper(Hand.kLeft), OI.controller.getBumper(Hand.kRight));    
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -2,16 +2,58 @@ package org.usfirst.frc103.Robot2019.subsystems;
 
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc103.Robot2019.RobotMap;
+
+import com.ctre.phoenix.motorcontrol.*;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import org.usfirst.frc103.Robot2019.OI;
+import org.usfirst.frc103.Robot2019.Robot;
+
+import edu.wpi.first.wpilibj.XboxController;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 import org.usfirst.frc103.Robot2019.commands.IntakeControl;
 
 public class Intake extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+  public static TalonSRX intakeMotor;
+
+  final double DEADZONE = 0.05;
+
+  public Intake() {
+    intakeMotor = new TalonSRX(RobotMap.INTAKE_TALON);
+  }
+
+    public void intakeRun(double intakeIn, double intakeOut) {
+      if ((intakeIn > 0 && intakeOut > 0) || (intakeIn < DEADZONE && intakeOut < DEADZONE)) {
+        intakeMotor.set(ControlMode.PercentOutput, 0.0);
+      } else {
+        if (intakeIn > 0){
+          if (OI.controller.getYButton()) {
+            intakeMotor.set(ControlMode.PercentOutput, -intakeIn);
+          } else {
+            intakeMotor.set(ControlMode.PercentOutput, -intakeIn * 0.25);
+          }
+        }
+        if (intakeOut > 0){
+          if (OI.controller.getYButton()) {
+            intakeMotor.set(ControlMode.PercentOutput, intakeOut);
+          } else {
+            intakeMotor.set(ControlMode.PercentOutput, intakeOut * 0.25);
+          }
+        }
+      }
+    }
+
+  public void climbIntake() {
+    intakeMotor.set(ControlMode.PercentOutput, 1.0);
+  }
 
   @Override
-  protected void initDefaultCommand() {
-    
+  protected void initDefaultCommand() { 
     // Set the default command for a subsystem here.
     setDefaultCommand(new IntakeControl());
   }
