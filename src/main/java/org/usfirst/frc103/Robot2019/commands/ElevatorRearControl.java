@@ -31,7 +31,9 @@ public class ElevatorRearControl extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.elevatorRear.setElevatorRear(OI.controller.getY(Hand.kLeft), rearLiftLocked);
+//    if (OI.controller.getYButton()) {
+      Robot.elevatorRear.setElevatorRear(OI.controller.getY(Hand.kLeft), rearLiftLocked);
+//    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

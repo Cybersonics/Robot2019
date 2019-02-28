@@ -16,9 +16,19 @@ public class ElevatorRear extends Subsystem {
   private DoubleSolenoid elevatorRearLock;
 
   public static final double DEADZONE = 0.05;
+  private static final double ELEVATOR_P = 10.0, ELEVATOR_I = 0.02, ELEVATOR_D = 0.0;
+  private static final int STATUS_FRAME_PERIOD = 5;
 
   public ElevatorRear() {
     elevatorRear = new TalonSRX(RobotMap.ELEVATOR_REAR_TALON);
+/*    elevatorRear.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+    elevatorRear.config_kP(0, ELEVATOR_P, 0);
+    elevatorRear.config_kI(0, ELEVATOR_I, 0);
+    elevatorRear.config_kD(0, ELEVATOR_D, 0);
+    elevatorRear.config_IntegralZone(0, 100, 0);
+    elevatorRear.configAllowableClosedloopError(0, 5, 0);
+    elevatorRear.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
+*/
     elevatorRearLock = new DoubleSolenoid(RobotMap.ELEVATOR_REAR_LOCK_FORWARD, RobotMap.ELEVATOR_REAR_LOCK_REVERSE);
   }
 

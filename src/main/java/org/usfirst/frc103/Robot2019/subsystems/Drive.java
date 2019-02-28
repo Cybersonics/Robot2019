@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.usfirst.frc103.Robot2019.Robot;
 import org.usfirst.frc103.Robot2019.RobotMap;
 import org.usfirst.frc103.Robot2019.commands.FieldCentricSwerveDrive;
 
@@ -42,9 +43,11 @@ public class Drive extends Subsystem {
 	private static final double STEER_P = 10.0, STEER_I = 0.02, STEER_D = 0.0;
 	private static final int STATUS_FRAME_PERIOD = 5;
 
+	public static final double OMEGA_SCALE = 1.0 / 30.0;
+
 	public Drive() {
 		driveLeftFront = new TalonSRX(RobotMap.DRIVE_LEFT_FRONT_TALON);
-        driveLeftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		driveLeftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
         driveLeftFront.setInverted(false);
         driveLeftFront.config_kP(0, DRIVE_P, 0);
         driveLeftFront.config_kI(0, DRIVE_I, 0);
@@ -142,6 +145,12 @@ public class Drive extends Subsystem {
         steerRightRear.configAllowableClosedloopError(0, 5, 0);
         steerRightRear.setNeutralMode(NeutralMode.Brake);
         steerRightRear.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
+	}
+
+	public double snapTo90() {
+		double angleError = Math.IEEEremainder((RobotMap.navX.getFusedHeading() - Robot.zeroHeading), 90.0);
+		double omega = Math.max(Math.min((angleError / 360) * 0.2, 0.03), -0.03); //may need to increase 0.2
+		return omega;
 	}
 
 	public void swerveDrive(double strafe, double forward, double omega) {
@@ -269,31 +278,31 @@ public class Drive extends Subsystem {
 	}
 	
 	public double getDriveLREncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return driveLeftRear.getSelectedSensorPosition(0);
 	}
 	
 	public double getDriveRFEncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return driveRightFront.getSelectedSensorPosition(0);
 	}
 	
 	public double getDriveRREncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return driveRightRear.getSelectedSensorPosition(0);
 	}
 	
 	public double getSteerLFEncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return steerLeftFront.getSelectedSensorPosition(0);
 	}
 	
 	public double getSteerLREncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return steerLeftRear.getSelectedSensorPosition(0);
 	}
 	
 	public double getSteerRFEncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return steerRightFront.getSelectedSensorPosition(0);
 	}
 	
 	public double getSteerRREncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return steerRightRear.getSelectedSensorPosition(0);
 	}
 
 	//setting motors

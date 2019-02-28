@@ -5,18 +5,20 @@ import static org.usfirst.frc103.Robot2019.RobotMap.navX;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+import org.usfirst.frc103.Robot2019.commands.ArmControl;
 import org.usfirst.frc103.Robot2019.commands.CenterDriveForwardSpinSequence;
 import org.usfirst.frc103.Robot2019.commands.CenterDriveLeftForwardSpinSequence;
 import org.usfirst.frc103.Robot2019.commands.DoNothingAuto;
 import org.usfirst.frc103.Robot2019.commands.DriveFieldCentric;
 import org.usfirst.frc103.Robot2019.commands.DriveForward;
+import org.usfirst.frc103.Robot2019.commands.DriveLeft;
 import org.usfirst.frc103.Robot2019.commands.LeftDriveForwardContinueSequence;
 import org.usfirst.frc103.Robot2019.commands.LeftDriveForwardSequence;
 import org.usfirst.frc103.Robot2019.commands.LeftDriveForwardSpinSequence;
 import org.usfirst.frc103.Robot2019.commands.RightDriveForwardContinueSequence;
 import org.usfirst.frc103.Robot2019.commands.RightDriveForwardSequence;
 import org.usfirst.frc103.Robot2019.commands.RightDriveForwardSpinSequence;
+import org.usfirst.frc103.Robot2019.commands.DriveLeft;
 //import org.usfirst.frc103.Robot2019.commands.VisionAutoSequence;
 import org.usfirst.frc103.Robot2019.commands.SimpleDriveForward;
 import org.usfirst.frc103.Robot2019.subsystems.Drive;
@@ -41,7 +43,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	
 	SendableChooser<Command> autonomousChooser;
-	Command autonomousCommand;
+    Command autonomousCommand;
+    
+    public static boolean autonomousEnd;
 
     public static double zeroHeading;
     
@@ -67,9 +71,10 @@ public class Robot extends TimedRobot {
         oi = new OI();
         
         autonomousChooser = new SendableChooser<Command>();
-        //TODO: change distance for DriveForward
+        //TODO: change distance for Driving
         autonomousChooser.addOption("Drive Forward", new DriveForward(0.0, 4500.0));
         autonomousChooser.addOption("Simple Drive Forward", new SimpleDriveForward(4500.0));
+        autonomousChooser.addOption("Drive Left", new DriveLeft(4500, 4500));
         autonomousChooser.setDefaultOption("Do Nothing", new DoNothingAuto());
         
         SmartDashboard.putData("AutonomousCommands", autonomousChooser);
@@ -96,11 +101,11 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
         zeroHeading = navX.getFusedHeading();
 
+        autonomousEnd = false;
+
         // schedule the autonomous command
     	autonomousCommand = (Command) autonomousChooser.getSelected();
-    	if (autonomousCommand != null) {
-    		autonomousCommand.start();
-    	}
+    	if (autonomousCommand != null) autonomousCommand.start();
     }
 
     @Override
@@ -108,11 +113,11 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
         updateDashboard();
 
-/*        //canceling auton for teleop control during sandstorm
+        //canceling auton for teleop control during sandstorm
         if (OI.leftJoy.getRawButton(3)) {
             if (autonomousCommand != null) autonomousCommand.cancel();
         }
-*/ 
+ 
     }
 
     @Override
@@ -122,8 +127,12 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
-       
+        autonomousEnd = true;
+
+        if (autonomousCommand != null) {
+            autonomousCommand.cancel();
+
+        }
     }
 
     @Override
@@ -153,12 +162,20 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("NavXHeading", navX.getFusedHeading());
     	SmartDashboard.putNumber("NavX Angle", navX.getAngle());
     	SmartDashboard.putNumber("NavXCompass", navX.getCompassHeading());
-    	SmartDashboard.putNumber("NavX Yaw", navX.getYaw());
+        SmartDashboard.putNumber("NavX Yaw", navX.getYaw());
+        
+        SmartDashboard.putNumber("Angle Testing", Math.abs(navX.getFusedHeading() - zeroHeading));
+        SmartDashboard.putBoolean("0 degrees", Math.abs(navX.getFusedHeading() - zeroHeading) >= 350 || Math.abs(navX.getFusedHeading() - zeroHeading) <= 10);
+        SmartDashboard.putBoolean("90 degrees", Math.abs(navX.getFusedHeading() - zeroHeading) >= 80 && Math.abs(navX.getFusedHeading() - zeroHeading) <= 100);
+        SmartDashboard.putBoolean("180 degrees", Math.abs(navX.getFusedHeading() - zeroHeading) >= 170 && Math.abs(navX.getFusedHeading() - zeroHeading) <= 190);
+        SmartDashboard.putBoolean("270 degrees", Math.abs(navX.getFusedHeading() - zeroHeading) >= 260 && Math.abs(navX.getFusedHeading() - zeroHeading) <= 280);
     	//SmartDashboard.putNumber("NavX X Displacement", navX.getDisplacementX());
     	//SmartDashboard.putNumber("NavX Y Displacement", navX.getDisplacementY());
         SmartDashboard.putNumber("ZeroHeading", zeroHeading);
         
         SmartDashboard.putNumber("Front Elevator", elevatorFront.getElevatorFrontEncoder());
+
+        SmartDashboard.putBoolean("Arm Locked", !ArmControl.armLock);
 
     }    
 }

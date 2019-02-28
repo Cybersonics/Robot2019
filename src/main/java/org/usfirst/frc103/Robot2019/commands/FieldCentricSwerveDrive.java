@@ -20,7 +20,9 @@ public class FieldCentricSwerveDrive extends Command {
     private double originHeading = 0.0;
     private boolean originLocked = false;
     private double leftPow = 1.0;
-    private double rightPow = 1.0;
+	private double rightPow = 1.0;
+	
+	private double omega;
 
 	public FieldCentricSwerveDrive() {
         requires(Robot.drive);
@@ -46,8 +48,21 @@ public class FieldCentricSwerveDrive extends Command {
     		
 		double strafe = Math.pow(Math.abs(OI.leftJoy.getX()), leftPow) * Math.signum(OI.leftJoy.getX());
 		double forward = Math.pow(Math.abs(OI.leftJoy.getY()), leftPow) * -Math.signum(OI.leftJoy.getY());
-        double omega = Math.pow(Math.abs(OI.rightJoy.getX()), rightPow) * Math.signum(OI.rightJoy.getX()) * OMEGA_SCALE;
-        /*double strafe = Math.pow(Math.abs(Robot.oi.controller.getX(Hand.kLeft)), leftPow) * Math.signum(Robot.oi.controller.getX(Hand.kLeft));
+
+		if(OI.rightJoy.getTrigger()) {
+			if(Math.abs(RobotMap.navX.getFusedHeading() - Robot.zeroHeading) >= 350 || Math.abs(RobotMap.navX.getFusedHeading() - Robot.zeroHeading) <= 10 ||
+			Math.abs(RobotMap.navX.getFusedHeading() - Robot.zeroHeading) >= 80 && Math.abs(RobotMap.navX.getFusedHeading() - Robot.zeroHeading) <= 100 ||
+			Math.abs(RobotMap.navX.getFusedHeading() - Robot.zeroHeading) >= 170 && Math.abs(RobotMap.navX.getFusedHeading() - Robot.zeroHeading) <= 190 ||
+			Math.abs(RobotMap.navX.getFusedHeading() - Robot.zeroHeading) >= 260 && Math.abs(RobotMap.navX.getFusedHeading() - Robot.zeroHeading) <= 280) {
+				omega = 0.0;
+			} else {
+				omega = Robot.drive.snapTo90();
+			}
+		} else {
+			omega = Math.pow(Math.abs(OI.rightJoy.getX()), rightPow) * Math.signum(OI.rightJoy.getX()) * OMEGA_SCALE;
+		}
+
+		/*double strafe = Math.pow(Math.abs(Robot.oi.controller.getX(Hand.kLeft)), leftPow) * Math.signum(Robot.oi.controller.getX(Hand.kLeft));
 		double forward = Math.pow(Math.abs(Robot.oi.controller.getY(Hand.kLeft)), leftPow) * -Math.signum(Robot.oi.controller.getY(Hand.kLeft));
         double omega = Math.pow(Math.abs(Robot.oi.controller.getX(Hand.kRight)), rightPow) * Math.signum(Robot.oi.controller.getX(Hand.kRight)) * OMEGA_SCALE;*/
         

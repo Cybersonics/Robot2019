@@ -22,7 +22,7 @@ public class Arm extends Subsystem {
 
   public Arm() {
     armMotor = new TalonSRX(RobotMap.ARM_TALON);
-    armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+    armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     armMotor.config_kP(0, ARM_P, 0);
     armMotor.config_kI(0, ARM_I, 0);
     armMotor.config_kD(0, ARM_D, 0);
@@ -59,6 +59,10 @@ public class Arm extends Subsystem {
 
   public void resetArmPin(){
     armLock.set(Value.kReverse);
+  }
+
+  public double getArmPositionEncoder(){
+    return armMotor.getSelectedSensorPosition(0); // number needs to be corrected
   }
 
   @Override

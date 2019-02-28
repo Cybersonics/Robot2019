@@ -35,7 +35,7 @@ public class Intake extends Subsystem {
           if (OI.controller.getYButton()) {
             intakeMotor.set(ControlMode.PercentOutput, -intakeIn);
           } else {
-            intakeMotor.set(ControlMode.PercentOutput, -intakeIn * 0.25);
+            intakeMotor.set(ControlMode.PercentOutput, -intakeIn * 0.15);
           }
         }
         if (intakeOut > 0){
@@ -43,13 +43,18 @@ public class Intake extends Subsystem {
             intakeMotor.set(ControlMode.PercentOutput, intakeOut);
           } else {
             intakeMotor.set(ControlMode.PercentOutput, intakeOut * 0.25);
+            //.25 for hold  .5 for ball eject
           }
         }
       }
     }
 
-  public void climbIntake() {
+  public void driverIntakeOut() {
     intakeMotor.set(ControlMode.PercentOutput, 1.0);
+  }
+
+  public void driverIntakeIn() {
+    intakeMotor.set(ControlMode.PercentOutput, -1.0);
   }
 
   @Override

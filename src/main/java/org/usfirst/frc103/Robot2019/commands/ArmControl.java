@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class ArmControl extends Command {
-  boolean armLock;
+  public static boolean armLock;
 
   public ArmControl() {
     requires(Robot.arm);
