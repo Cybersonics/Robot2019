@@ -147,12 +147,17 @@ public class Drive extends Subsystem {
         steerRightRear.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
 	}
 
-	public double snapTo90() {
+/*	public double snapTo90() {
+		double omega;
 		double angleError = Math.IEEEremainder((RobotMap.navX.getFusedHeading() - Robot.zeroHeading), 90.0);
-		double omega = Math.max(Math.min((angleError / 360) * 0.2, 0.03), -0.03); //may need to increase 0.2
+		if (Math.abs(angleError) < 2) {
+			omega = 0.0;
+		} else {
+			omega = Math.max(Math.min((angleError / 360) * 0.2, 0.03), -0.03); //may need to increase 0.2
+		}
 		return omega;
 	}
-
+*/
 	public void swerveDrive(double strafe, double forward, double omega) {
         double omegaL2 = omega * (WHEEL_BASE_LENGTH / 2.0);
         double omegaW2 = omega * (WHEEL_BASE_WIDTH / 2.0);

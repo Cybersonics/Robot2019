@@ -114,10 +114,10 @@ public class Robot extends TimedRobot {
         updateDashboard();
 
         //canceling auton for teleop control during sandstorm
-        if (OI.leftJoy.getRawButton(3)) {
+/*        if (OI.leftJoy.getRawButton(3)) {
             if (autonomousCommand != null) autonomousCommand.cancel();
         }
- 
+*/ 
     }
 
     @Override
@@ -165,10 +165,10 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("NavX Yaw", navX.getYaw());
         
         SmartDashboard.putNumber("Angle Testing", Math.abs(navX.getFusedHeading() - zeroHeading));
-        SmartDashboard.putBoolean("0 degrees", Math.abs(navX.getFusedHeading() - zeroHeading) >= 350 || Math.abs(navX.getFusedHeading() - zeroHeading) <= 10);
-        SmartDashboard.putBoolean("90 degrees", Math.abs(navX.getFusedHeading() - zeroHeading) >= 80 && Math.abs(navX.getFusedHeading() - zeroHeading) <= 100);
-        SmartDashboard.putBoolean("180 degrees", Math.abs(navX.getFusedHeading() - zeroHeading) >= 170 && Math.abs(navX.getFusedHeading() - zeroHeading) <= 190);
-        SmartDashboard.putBoolean("270 degrees", Math.abs(navX.getFusedHeading() - zeroHeading) >= 260 && Math.abs(navX.getFusedHeading() - zeroHeading) <= 280);
+        SmartDashboard.putBoolean("0 degrees", Math.abs(navX.getFusedHeading() - zeroHeading) >= 355 || Math.abs(navX.getFusedHeading() - zeroHeading) <= 5);
+        SmartDashboard.putBoolean("90 degrees", Math.abs(navX.getFusedHeading() - zeroHeading) >= 85 && Math.abs(navX.getFusedHeading() - zeroHeading) <= 95);
+        SmartDashboard.putBoolean("180 degrees", Math.abs(navX.getFusedHeading() - zeroHeading) >= 175 && Math.abs(navX.getFusedHeading() - zeroHeading) <= 185);
+        SmartDashboard.putBoolean("270 degrees", Math.abs(navX.getFusedHeading() - zeroHeading) >= 265 && Math.abs(navX.getFusedHeading() - zeroHeading) <= 275);
     	//SmartDashboard.putNumber("NavX X Displacement", navX.getDisplacementX());
     	//SmartDashboard.putNumber("NavX Y Displacement", navX.getDisplacementY());
         SmartDashboard.putNumber("ZeroHeading", zeroHeading);

@@ -63,7 +63,7 @@ public class DriveLeft extends Command {
     }
 
     Robot.drive.swerveDrive(strafe, forward, 0.0);
-  }
+  }// find a way to make this code include fewer booleans
 
   // Make this return true when this Command no longer needs to run execute()
   @Override

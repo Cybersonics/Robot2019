@@ -40,6 +40,18 @@ public class IntakeControl extends Command {
     } else {
       Robot.intake.intakeRun(OI.controller.getTriggerAxis(Hand.kLeft), OI.controller.getTriggerAxis(Hand.kRight));
     }
+
+    if (OI.leftJoy.getRawButton(3)) {
+      Robot.intake.driverBallIntakeIn();
+    }
+
+    if (OI.controller.getPOV() == 180) {
+      Robot.intake.operatorLowIntakeIn();
+    }
+
+    if (OI.controller.getPOV() == 270) {
+      Robot.intake.operatorMediumIntakeIn();
+    }    
   }
 
   // Make this return true when this Command no longer needs to run execute()

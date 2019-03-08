@@ -43,7 +43,7 @@ public class ElevatorFront extends Subsystem {
     elevatorFront.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
     elevatorFront.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
   }
-
+/*
   public void elevatorFrontHatchPositionUp() {
     if (getElevatorFrontEncoder() < HATCH_1_HEIGHT) {
       setElevatorFrontPosition(HATCH_1_HEIGHT);
@@ -83,7 +83,8 @@ public class ElevatorFront extends Subsystem {
   public void elevatorFrontClimbHeight(){
     setElevatorFrontPosition(CLIMB_HEIGHT);
   }
-
+  //Ask operator for potential button ideas
+*/
 
 
 

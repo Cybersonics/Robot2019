@@ -32,7 +32,7 @@ public class Climb extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(OI.controller.getStartButton()) {
+/*    if(OI.controller.getStartButton()) {
       Robot.elevatorFront.elevatorFrontClimbHeight();
     }
 
@@ -40,7 +40,7 @@ public class Climb extends Command {
       Robot.elevatorFront.elevatorFrontClimbHeight(); 
       startPressed = true;
     }
-
+*/
     if((Robot.elevatorFront.getElevatorFrontEncoder() == Robot.elevatorFront.CLIMB_HEIGHT) && startPressed==true){
         Robot.arm.armPosition(false, true);
     }
@@ -49,6 +49,8 @@ public class Climb extends Command {
       Robot.arm.armPosition(false, false);
       Robot.arm.setArmPin();
     }
+    //still needs front and rear elevator commands
+    //still needs to run rollers, once the robot is at the climb level
   }
 
   // Make this return true when this Command no longer needs to run execute()

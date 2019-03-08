@@ -35,7 +35,7 @@ public class Intake extends Subsystem {
           if (OI.controller.getYButton()) {
             intakeMotor.set(ControlMode.PercentOutput, -intakeIn);
           } else {
-            intakeMotor.set(ControlMode.PercentOutput, -intakeIn * 0.15);
+            intakeMotor.set(ControlMode.PercentOutput, -intakeIn);
           }
         }
         if (intakeOut > 0){
@@ -49,12 +49,24 @@ public class Intake extends Subsystem {
       }
     }
 
+  public void operatorLowIntakeIn() {
+    intakeMotor.set(ControlMode.PercentOutput, -0.3);
+  }
+
+  public void operatorMediumIntakeIn() {
+    intakeMotor.set(ControlMode.PercentOutput, -0.5);
+  }
+
   public void driverIntakeOut() {
     intakeMotor.set(ControlMode.PercentOutput, 1.0);
   }
 
   public void driverIntakeIn() {
     intakeMotor.set(ControlMode.PercentOutput, -1.0);
+  }
+
+  public void driverBallIntakeIn() {
+    intakeMotor.set(ControlMode.PercentOutput, -0.6);
   }
 
   @Override

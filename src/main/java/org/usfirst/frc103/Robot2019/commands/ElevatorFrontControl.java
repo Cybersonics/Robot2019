@@ -24,7 +24,7 @@ public class ElevatorFrontControl extends Command {
     if (Robot.elevatorFront.elevatorFrontLimitHit()) {
       Robot.elevatorFront.elevatorFrontZeroEncoder();
     }
-
+/*
 //balls
     if (OI.controller.getYButton() && OI.controller.getPOV()==1) {
       Robot.elevatorFront.elevatorFrontBallPositionUp();
@@ -41,7 +41,7 @@ public class ElevatorFrontControl extends Command {
     else if (OI.controller.getXButton()) {
       Robot.elevatorFront.elevatorFrontBallCargoPosition();
     }
-
+*/
     
 
     
