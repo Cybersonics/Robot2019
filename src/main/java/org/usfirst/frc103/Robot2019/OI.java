@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
 public class OI {
-    public static Joystick leftJoy;
-    public static Joystick rightJoy;
-    public static XboxController controller;
+    public Joystick leftJoy;
+    public Joystick rightJoy;
+    public XboxController controller;
 
     public  OI(){
         leftJoy = new Joystick(RobotMap.LEFT_JOYSTICK);
@@ -32,6 +32,10 @@ public class OI {
 
     public boolean getBButtonRelease(){
         return controller.getBButtonReleased();
+    }
+
+    public boolean getLeftJoyButton (int buttonNumber){
+        return leftJoy.getRawButton(buttonNumber);
     }
 
 }

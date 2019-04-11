@@ -15,8 +15,8 @@ public class SwerveDrive extends Command {
 
     @Override
 	protected void execute() {
-		double vX = OI.leftJoy.getX(), vY = -OI.leftJoy.getY();
-        double omega = OI.rightJoy.getX() / 30.0;
+		double vX = Robot.oi.leftJoy.getX(), vY = -Robot.oi.leftJoy.getY();
+        double omega = Robot.oi.rightJoy.getX() / 30.0;
         Robot.drive.swerveDrive(vX, vY, omega);
     }
 

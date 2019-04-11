@@ -24,8 +24,8 @@ public class Drive extends Subsystem {
 	private TalonSRX steerRightFront;
 	private TalonSRX steerRightRear;
 
-	public static final double WHEEL_BASE_LENGTH = 28.0;
-	public static final double WHEEL_BASE_WIDTH = 22.0;
+	public static final double WHEEL_BASE_LENGTH = 20; //28.0;
+	public static final double WHEEL_BASE_WIDTH = 24; //22.0;
 	public static final double ENCODER_COUNT_PER_ROTATION = 1024.0;
 
 	public static final double WHEEL_DIAMETER = 4.0;
@@ -44,62 +44,67 @@ public class Drive extends Subsystem {
 
 	public Drive() {
 		driveLeftFront = new TalonSRX(RobotMap.DRIVE_LEFT_FRONT_TALON);
+		driveLeftFront.configFactoryDefault();
         driveLeftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
         driveLeftFront.setInverted(false);
-        driveLeftFront.config_kP(0, DRIVE_P, 0);
-        driveLeftFront.config_kI(0, DRIVE_I, 0);
-        driveLeftFront.config_kD(0, DRIVE_D, 0);
-        driveLeftFront.config_IntegralZone(0, DRIVE_I_ZONE, 0);
-        driveLeftFront.config_kF(0, DRIVE_F, 0);
-        driveLeftFront.configAllowableClosedloopError(0, DRIVE_ALLOWABLE_ERROR, 0);
-        driveLeftFront.configClosedloopRamp(DRIVE_RAMP_RATE, 0);
-        driveLeftFront.configVelocityMeasurementPeriod(DRIVE_MEASUREMENT_PERIOD, 0);
-		driveLeftFront.configVelocityMeasurementWindow(DRIVE_MEASUREMENT_WINDOW, 0);
-		driveLeftFront.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD);
+        // driveLeftFront.config_kP(0, DRIVE_P, 0);
+        // driveLeftFront.config_kI(0, DRIVE_I, 0);
+        // driveLeftFront.config_kD(0, DRIVE_D, 0);
+        // driveLeftFront.config_IntegralZone(0, DRIVE_I_ZONE, 0);
+        // driveLeftFront.config_kF(0, DRIVE_F, 0);
+        // driveLeftFront.configAllowableClosedloopError(0, DRIVE_ALLOWABLE_ERROR, 0);
+        // driveLeftFront.configClosedloopRamp(DRIVE_RAMP_RATE, 0);
+        // driveLeftFront.configVelocityMeasurementPeriod(DRIVE_MEASUREMENT_PERIOD, 0);
+		// driveLeftFront.configVelocityMeasurementWindow(DRIVE_MEASUREMENT_WINDOW, 0);
+		// driveLeftFront.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD);
         
-        driveLeftRear = new TalonSRX(RobotMap.DRIVE_LEFT_REAR_TALON);
+		driveLeftRear = new TalonSRX(RobotMap.DRIVE_LEFT_REAR_TALON);
+		driveLeftRear.configFactoryDefault();
         driveLeftRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
         driveLeftRear.setInverted(false);
-        driveLeftRear.config_kP(0, DRIVE_P, 0);
-        driveLeftRear.config_kI(0, DRIVE_I, 0);
-        driveLeftRear.config_kD(0, DRIVE_D, 0);
-        driveLeftRear.config_IntegralZone(0, DRIVE_I_ZONE, 0);
-        driveLeftRear.config_kF(0, DRIVE_F, 0);
-        driveLeftRear.configAllowableClosedloopError(0, DRIVE_ALLOWABLE_ERROR, 0);
-        driveLeftRear.configClosedloopRamp(DRIVE_RAMP_RATE, 0);
-        driveLeftRear.configVelocityMeasurementPeriod(DRIVE_MEASUREMENT_PERIOD, 0);
-        driveLeftRear.configVelocityMeasurementWindow(DRIVE_MEASUREMENT_WINDOW, 0);
-        driveLeftRear.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
+        // driveLeftRear.config_kP(0, DRIVE_P, 0);
+        // driveLeftRear.config_kI(0, DRIVE_I, 0);
+        // driveLeftRear.config_kD(0, DRIVE_D, 0);
+        // driveLeftRear.config_IntegralZone(0, DRIVE_I_ZONE, 0);
+        // driveLeftRear.config_kF(0, DRIVE_F, 0);
+        // driveLeftRear.configAllowableClosedloopError(0, DRIVE_ALLOWABLE_ERROR, 0);
+        // driveLeftRear.configClosedloopRamp(DRIVE_RAMP_RATE, 0);
+        // driveLeftRear.configVelocityMeasurementPeriod(DRIVE_MEASUREMENT_PERIOD, 0);
+        // driveLeftRear.configVelocityMeasurementWindow(DRIVE_MEASUREMENT_WINDOW, 0);
+        // driveLeftRear.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
 
-        driveRightFront = new TalonSRX(RobotMap.DRIVE_RIGHT_FRONT_TALON);
+		driveRightFront = new TalonSRX(RobotMap.DRIVE_RIGHT_FRONT_TALON);
+		driveRightFront.configFactoryDefault();
         driveRightFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
         driveRightFront.setInverted(false);
-        driveRightFront.config_kP(0, DRIVE_P, 0);
-        driveRightFront.config_kI(0, DRIVE_I, 0);
-        driveRightFront.config_kD(0, DRIVE_D, 0);
-        driveRightFront.config_IntegralZone(0, DRIVE_I_ZONE, 0);
-        driveRightFront.config_kF(0, DRIVE_F, 0);
-        driveRightFront.configAllowableClosedloopError(0, DRIVE_ALLOWABLE_ERROR, 0);
-        driveRightFront.configClosedloopRamp(DRIVE_RAMP_RATE, 0);
-        driveRightFront.configVelocityMeasurementPeriod(DRIVE_MEASUREMENT_PERIOD, 0);
-        driveRightFront.configVelocityMeasurementWindow(DRIVE_MEASUREMENT_WINDOW, 0);
-        driveRightFront.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
+        // driveRightFront.config_kP(0, DRIVE_P, 0);
+        // driveRightFront.config_kI(0, DRIVE_I, 0);
+        // driveRightFront.config_kD(0, DRIVE_D, 0);
+        // driveRightFront.config_IntegralZone(0, DRIVE_I_ZONE, 0);
+        // driveRightFront.config_kF(0, DRIVE_F, 0);
+        // driveRightFront.configAllowableClosedloopError(0, DRIVE_ALLOWABLE_ERROR, 0);
+        // driveRightFront.configClosedloopRamp(DRIVE_RAMP_RATE, 0);
+        // driveRightFront.configVelocityMeasurementPeriod(DRIVE_MEASUREMENT_PERIOD, 0);
+        // driveRightFront.configVelocityMeasurementWindow(DRIVE_MEASUREMENT_WINDOW, 0);
+        // driveRightFront.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
 
-        driveRightRear = new TalonSRX(RobotMap.DRIVE_RIGHT_REAR_TALON);
+		driveRightRear = new TalonSRX(RobotMap.DRIVE_RIGHT_REAR_TALON);
+		driveRightRear.configFactoryDefault();
         driveRightRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
         driveRightRear.setInverted(false);
-        driveRightRear.config_kP(0, DRIVE_P, 0);
-        driveRightRear.config_kI(0, DRIVE_I, 0);
-        driveRightRear.config_kD(0, DRIVE_D, 0);
-        driveRightRear.config_IntegralZone(0, DRIVE_I_ZONE, 0);
-        driveRightRear.config_kF(0, DRIVE_F, 0);
-        driveRightRear.configAllowableClosedloopError(0, DRIVE_ALLOWABLE_ERROR, 0);
-        driveRightRear.configClosedloopRamp(DRIVE_RAMP_RATE, 0);
-        driveRightRear.configVelocityMeasurementPeriod(DRIVE_MEASUREMENT_PERIOD, 0);
-        driveRightRear.configVelocityMeasurementWindow(DRIVE_MEASUREMENT_WINDOW, 0);
-        driveRightRear.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
+        // driveRightRear.config_kP(0, DRIVE_P, 0);
+        // driveRightRear.config_kI(0, DRIVE_I, 0);
+        // driveRightRear.config_kD(0, DRIVE_D, 0);
+        // driveRightRear.config_IntegralZone(0, DRIVE_I_ZONE, 0);
+        // driveRightRear.config_kF(0, DRIVE_F, 0);
+        // driveRightRear.configAllowableClosedloopError(0, DRIVE_ALLOWABLE_ERROR, 0);
+        // driveRightRear.configClosedloopRamp(DRIVE_RAMP_RATE, 0);
+        // driveRightRear.configVelocityMeasurementPeriod(DRIVE_MEASUREMENT_PERIOD, 0);
+        // driveRightRear.configVelocityMeasurementWindow(DRIVE_MEASUREMENT_WINDOW, 0);
+        // driveRightRear.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
 
-        steerLeftFront = new TalonSRX(RobotMap.STEER_LEFT_FRONT_TALON);
+		steerLeftFront = new TalonSRX(RobotMap.STEER_LEFT_FRONT_TALON);
+		steerLeftFront.configFactoryDefault();
         steerLeftFront.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
         steerLeftFront.setInverted(false);
         steerLeftFront.config_kP(0, STEER_P, 0);
@@ -110,7 +115,8 @@ public class Drive extends Subsystem {
         steerLeftFront.setNeutralMode(NeutralMode.Brake);
         steerLeftFront.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
 
-        steerLeftRear = new TalonSRX(RobotMap.STEER_LEFT_REAR_TALON);
+		steerLeftRear = new TalonSRX(RobotMap.STEER_LEFT_REAR_TALON);
+		steerLeftRear.configFactoryDefault();
         steerLeftRear.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
         steerLeftRear.setInverted(false);
         steerLeftRear.config_kP(0, STEER_P, 0);
@@ -121,7 +127,8 @@ public class Drive extends Subsystem {
         steerLeftRear.setNeutralMode(NeutralMode.Brake);
         steerLeftRear.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
 
-        steerRightFront = new TalonSRX(RobotMap.STEER_RIGHT_FRONT_TALON);
+		steerRightFront = new TalonSRX(RobotMap.STEER_RIGHT_FRONT_TALON);
+		steerRightFront.configFactoryDefault();
         steerRightFront.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
         steerRightFront.setInverted(false);
         steerRightFront.config_kP(0, STEER_P, 0);
@@ -132,7 +139,8 @@ public class Drive extends Subsystem {
         steerRightFront.setNeutralMode(NeutralMode.Brake);
         steerRightFront.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
 
-        steerRightRear = new TalonSRX(RobotMap.STEER_RIGHT_REAR_TALON);
+		steerRightRear = new TalonSRX(RobotMap.STEER_RIGHT_REAR_TALON);
+		steerRightRear.configFactoryDefault();
         steerRightRear.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
         steerRightRear.setInverted(false);
         steerRightRear.config_kP(0, STEER_P, 0);
@@ -177,16 +185,6 @@ public class Drive extends Subsystem {
     	setSwerveModule(steerLeftRear, driveLeftRear, angleLR, speedLR / maxSpeed);
     	setSwerveModule(steerRightFront, driveRightFront, angleRF, speedRF / maxSpeed);
 		setSwerveModule(steerRightRear, driveRightRear, angleRR, speedRR / maxSpeed);
-		
-		SmartDashboard.putNumber("LF Steer Angle", angleLF);
-    	SmartDashboard.putNumber("LR Steer Angle", angleLR);
-    	SmartDashboard.putNumber("RF Steer Angle", angleRF);
-    	SmartDashboard.putNumber("RR Steer Angle", angleRR);
-
-    	SmartDashboard.putNumber("LF Drive Speed", speedLF);
-    	SmartDashboard.putNumber("LR Drive Speed", speedLR);
-    	SmartDashboard.putNumber("RF Drive Speed", speedRF);
-    	SmartDashboard.putNumber("RR Drive Speed", speedRR);
 	}
 	
 	private double speed(double val1, double val2){
@@ -248,14 +246,14 @@ public class Drive extends Subsystem {
     	}
     	// If we need to turn more than 90 degrees, we can reverse the wheel direction instead and
 		// only rotate by the complement
-		/*
-		if (Math.abs(speed) <= MAX_SPEED){
+		
+		//if (Math.abs(speed) <= MAX_SPEED){
     		if (Math.abs(deltaDegrees) > 90.0) {
     			deltaDegrees -= 180.0 * Math.signum(deltaDegrees);
     			speed = -speed;
 			}
-		}
-		*/
+		//}
+		
 
 		double targetPosition = currentPosition + deltaDegrees * ENCODER_COUNT_PER_ROTATION / 360.0;
 		steer.set(ControlMode.Position, targetPosition);
@@ -269,31 +267,31 @@ public class Drive extends Subsystem {
 	}
 	
 	public double getDriveLREncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return driveLeftRear.getSelectedSensorPosition(0);
 	}
 	
 	public double getDriveRFEncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return driveRightFront.getSelectedSensorPosition(0);
 	}
 	
 	public double getDriveRREncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return driveRightRear.getSelectedSensorPosition(0);
 	}
 	
 	public double getSteerLFEncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return steerLeftFront.getSelectedSensorPosition(0);
 	}
 	
 	public double getSteerLREncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return steerLeftRear.getSelectedSensorPosition(0);
 	}
 	
 	public double getSteerRFEncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return steerRightFront.getSelectedSensorPosition(0);
 	}
 	
 	public double getSteerRREncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+		return steerRightRear.getSelectedSensorPosition(0);
 	}
 
 	//setting motors

@@ -41,10 +41,10 @@ public class Arm extends Subsystem {
       armMotor.set(ControlMode.PercentOutput, 0.0);
     } else {
       if (armUp){
-        armMotor.set(ControlMode.PercentOutput, 0.35);
+        armMotor.set(ControlMode.PercentOutput, 0.5);
       }
       if (armDown){
-        armMotor.set(ControlMode.PercentOutput, -0.35);
+        armMotor.set(ControlMode.PercentOutput, -0.5);
       }
     }
   }

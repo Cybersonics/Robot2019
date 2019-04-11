@@ -106,7 +106,7 @@ public class Robot extends TimedRobot {
     @Override
 	public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        updateDashboard();
+        //updateDashboard();
 
 /*        //canceling auton for teleop control during sandstorm
         if (OI.leftJoy.getRawButton(3)) {
@@ -129,9 +129,9 @@ public class Robot extends TimedRobot {
     @Override
 	public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        updateDashboard();
+        //updateDashboard();
 
-    	if (OI.leftJoy.getRawButton(10)) zeroHeading = RobotMap.navX.getFusedHeading();
+    	if (oi.leftJoy.getRawButton(10)) zeroHeading = RobotMap.navX.getFusedHeading();
     }
 
     @Override
@@ -145,10 +145,10 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("RF Steer Position", drive.getSteerRFEncoder());
     	SmartDashboard.putNumber("RR Steer Position", drive.getSteerRREncoder());
 
-    	SmartDashboard.putNumber("LF Drive Position", drive.getDriveLFEncoder());
-    	SmartDashboard.putNumber("LR Drive Position", drive.getDriveLREncoder());
-    	SmartDashboard.putNumber("RF Drive Position", drive.getDriveRFEncoder());
-    	SmartDashboard.putNumber("RR Drive Position", drive.getDriveRREncoder());
+    	// SmartDashboard.putNumber("LF Drive Position", drive.getDriveLFEncoder());
+    	// SmartDashboard.putNumber("LR Drive Position", drive.getDriveLREncoder());
+    	// SmartDashboard.putNumber("RF Drive Position", drive.getDriveRFEncoder());
+    	// SmartDashboard.putNumber("RR Drive Position", drive.getDriveRREncoder());
     	
     	SmartDashboard.putNumber("NavXHeading", navX.getFusedHeading());
     	SmartDashboard.putNumber("NavX Angle", navX.getAngle());
@@ -158,7 +158,7 @@ public class Robot extends TimedRobot {
     	//SmartDashboard.putNumber("NavX Y Displacement", navX.getDisplacementY());
         SmartDashboard.putNumber("ZeroHeading", zeroHeading);
         
-        SmartDashboard.putNumber("Front Elevator", elevatorFront.getElevatorFrontEncoder());
+        //SmartDashboard.putNumber("Front Elevator", elevatorFront.getElevatorFrontEncoder());
 
     }    
 }

@@ -32,11 +32,25 @@ public class IntakeControl extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (OI.leftJoy.getRawButton(2)) {
-      Robot.intake.climbIntake();
+    if (Robot.oi.leftJoy.getRawButton(2)) {
+      //Robot.intake.climbIntake();
+      Robot.intake.driverIntakeIn();
+    } else if (Robot.oi.rightJoy.getRawButton(2)) {
+      Robot.intake.driverIntakeOut();
     } else {
-      Robot.intake.intakeRun(OI.controller.getTriggerAxis(Hand.kLeft), OI.controller.getTriggerAxis(Hand.kRight));
+      Robot.intake.intakeRun(Robot.oi.controller.getTriggerAxis(Hand.kLeft), Robot.oi.controller.getTriggerAxis(Hand.kRight));
     }
+    if (Robot.oi.leftJoy.getRawButton(3)) {
+      Robot.intake.driverBallIntakeIn();
+    }
+
+    if (Robot.oi.controller.getPOV() == 180) {
+      Robot.intake.operatorLowIntakeIn();
+    }
+
+    if (Robot.oi.controller.getPOV() == 270) {
+      Robot.intake.operatorMediumIntakeIn();
+    }    
   }
 
   // Make this return true when this Command no longer needs to run execute()

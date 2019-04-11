@@ -27,30 +27,46 @@ public class Intake extends Subsystem {
     intakeMotor = new TalonSRX(RobotMap.INTAKE_TALON);
   }
 
-    public void intakeRun(double intakeIn, double intakeOut) {
-      if ((intakeIn > 0 && intakeOut > 0) || (intakeIn < DEADZONE && intakeOut < DEADZONE)) {
-        intakeMotor.set(ControlMode.PercentOutput, 0.0);
-      } else {
-        if (intakeIn > 0){
-          if (OI.controller.getYButton()) {
-            intakeMotor.set(ControlMode.PercentOutput, -intakeIn);
-          } else {
-            intakeMotor.set(ControlMode.PercentOutput, -intakeIn * 0.25);
-          }
+  public void intakeRun(double intakeIn, double intakeOut) {
+    if ((intakeIn > 0 && intakeOut > 0) || (intakeIn < DEADZONE && intakeOut < DEADZONE)) {
+      intakeMotor.set(ControlMode.PercentOutput, 0.0);
+    } else {
+      if (intakeIn > 0){
+        if (Robot.oi.controller.getYButton()) {
+          intakeMotor.set(ControlMode.PercentOutput, -intakeIn);
+        } else {
+          intakeMotor.set(ControlMode.PercentOutput, -(intakeIn * intakeIn));
         }
-        if (intakeOut > 0){
-          if (OI.controller.getYButton()) {
-            intakeMotor.set(ControlMode.PercentOutput, intakeOut);
-          } else {
-            intakeMotor.set(ControlMode.PercentOutput, intakeOut * 0.25);
-          }
+      }
+      if (intakeOut > 0){
+        if (Robot.oi.controller.getYButton()) {
+          intakeMotor.set(ControlMode.PercentOutput, intakeOut*intakeOut);
+        } else {
+          intakeMotor.set(ControlMode.PercentOutput, intakeOut * 0.25);
         }
       }
     }
+  }
 
-  public void climbIntake() {
+  public void operatorLowIntakeIn() {
+    intakeMotor.set(ControlMode.PercentOutput, -0.5);
+  }
+  
+  public void operatorMediumIntakeIn() {
+    intakeMotor.set(ControlMode.PercentOutput, -0.5);
+  }
+  
+  public void driverIntakeOut() {
     intakeMotor.set(ControlMode.PercentOutput, 1.0);
   }
+  public void driverIntakeIn() {
+    intakeMotor.set(ControlMode.PercentOutput, -1.0);
+  }
+
+  public void driverBallIntakeIn() {
+    intakeMotor.set(ControlMode.PercentOutput, -0.6);
+  }
+
 
   @Override
   protected void initDefaultCommand() { 

@@ -19,7 +19,7 @@ public class ElevatorFrontControl extends Command {
 
   @Override
   protected void execute() {
-    Robot.elevatorFront.setElevatorFront(OI.controller.getY(Hand.kRight));
+    Robot.elevatorFront.setElevatorFront(Robot.oi.controller.getY(Hand.kRight));
 /*    if (OI.controller.getY(Hand.kRight) > ElevatorFront.DEADZONE) {
       Robot.elevatorFront.setElevatorFront(OI.controller.getY(Hand.kRight));
     }

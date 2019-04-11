@@ -34,7 +34,8 @@ public class FieldCentricSwerveDrive extends Command {
 
     @Override
 	protected void execute() {
-    	if (OI.leftJoy.getRawButton(7)) originHeading = RobotMap.navX.getFusedHeading();
+		if (Robot.oi.getLeftJoyButton(7)) originHeading = RobotMap.navX.getFusedHeading();
+		//if (OI.leftJoy.getRawButton(7)) originHeading = RobotMap.navX.getFusedHeading();
     	
     	//if (Robot.oi.leftJoy.getRawButton(8)) leftPow = 1.0;
     	//if (Robot.oi.leftJoy.getRawButton(10)) leftPow = 1.5;
@@ -44,9 +45,9 @@ public class FieldCentricSwerveDrive extends Command {
     	//if (Robot.oi.rightJoy.getRawButton(10)) rightPow = 1.5;
     	//if (Robot.oi.rightJoy.getRawButton(12)) rightPow = 2.0;
     		
-		double strafe = Math.pow(Math.abs(OI.leftJoy.getX()), leftPow) * Math.signum(OI.leftJoy.getX());
-		double forward = Math.pow(Math.abs(OI.leftJoy.getY()), leftPow) * -Math.signum(OI.leftJoy.getY());
-        double omega = Math.pow(Math.abs(OI.rightJoy.getX()), rightPow) * Math.signum(OI.rightJoy.getX()) * OMEGA_SCALE;
+		double strafe = Math.pow(Math.abs(Robot.oi.leftJoy.getX()), leftPow) * Math.signum(Robot.oi.leftJoy.getX());
+		double forward = Math.pow(Math.abs(Robot.oi.leftJoy.getY()), leftPow) * -Math.signum(Robot.oi.leftJoy.getY());
+        double omega = Math.pow(Math.abs(Robot.oi.rightJoy.getX()), rightPow) * Math.signum(Robot.oi.rightJoy.getX()) * OMEGA_SCALE;
         /*double strafe = Math.pow(Math.abs(Robot.oi.controller.getX(Hand.kLeft)), leftPow) * Math.signum(Robot.oi.controller.getX(Hand.kLeft));
 		double forward = Math.pow(Math.abs(Robot.oi.controller.getY(Hand.kLeft)), leftPow) * -Math.signum(Robot.oi.controller.getY(Hand.kLeft));
         double omega = Math.pow(Math.abs(Robot.oi.controller.getX(Hand.kRight)), rightPow) * Math.signum(Robot.oi.controller.getX(Hand.kRight)) * OMEGA_SCALE;*/
@@ -78,7 +79,7 @@ public class FieldCentricSwerveDrive extends Command {
 			return;
 		}
 		
-        if (!OI.leftJoy.getTrigger()) {
+        if (!Robot.oi.leftJoy.getTrigger()) {
         	// When the trigger is pressed, we lock the origin heading to the current
         	// orientation of the robot, but only when the trigger is first pressed
     	//	if (!originLocked) {

@@ -40,7 +40,7 @@ public class ArmControl extends Command {
       }
     }
 
-    Robot.arm.armPosition(OI.controller.getBumper(Hand.kLeft), OI.controller.getBumper(Hand.kRight));    
+    Robot.arm.armPosition(Robot.oi.controller.getBumper(Hand.kLeft), Robot.oi.controller.getBumper(Hand.kRight));    
   }
 
   // Make this return true when this Command no longer needs to run execute()

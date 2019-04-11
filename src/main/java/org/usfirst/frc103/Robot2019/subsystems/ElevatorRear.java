@@ -14,11 +14,18 @@ import org.usfirst.frc103.Robot2019.RobotMap;
 public class ElevatorRear extends Subsystem {
   private TalonSRX elevatorRear;
   private DoubleSolenoid elevatorRearLock;
+  private static final int MAX_AMPS = 5;
+  private static final int MAX_AMPS_DURATION = 0;
 
   public static final double DEADZONE = 0.05;
 
   public ElevatorRear() {
     elevatorRear = new TalonSRX(RobotMap.ELEVATOR_REAR_TALON);
+    elevatorRear.configFactoryDefault();
+    elevatorRear.configPeakCurrentLimit(MAX_AMPS, MAX_AMPS_DURATION);
+    elevatorRear.configPeakCurrentDuration(0, 0);
+    elevatorRear.configContinuousCurrentLimit(MAX_AMPS);
+
     elevatorRearLock = new DoubleSolenoid(RobotMap.ELEVATOR_REAR_LOCK_FORWARD, RobotMap.ELEVATOR_REAR_LOCK_REVERSE);
   }
 
@@ -33,6 +40,13 @@ public class ElevatorRear extends Subsystem {
     } else {
       elevatorRearLock.set(Value.kForward);
       locked = false;
+      
+      if (rearLift >= 0 ) {
+        elevatorRear.enableCurrentLimit(false);
+      } else {
+        elevatorRear.enableCurrentLimit(true);
+      }
+
       elevatorRear.set(ControlMode.PercentOutput, rearLift);
     }
   }
