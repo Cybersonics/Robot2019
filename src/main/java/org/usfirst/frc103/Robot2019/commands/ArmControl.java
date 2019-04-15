@@ -3,10 +3,7 @@ package org.usfirst.frc103.Robot2019.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc103.Robot2019.Robot;
-import org.usfirst.frc103.Robot2019.OI;
-import org.usfirst.frc103.Robot2019.subsystems.Arm;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class ArmControl extends Command {

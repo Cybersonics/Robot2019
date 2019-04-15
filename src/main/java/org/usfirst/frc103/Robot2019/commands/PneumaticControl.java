@@ -1,15 +1,7 @@
 package org.usfirst.frc103.Robot2019.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc103.Robot2019.Robot;
-import org.usfirst.frc103.Robot2019.RobotMap;
-
-import edu.wpi.first.wpilibj.XboxController;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-
 
 public class PneumaticControl extends Command {
   boolean bPressed;

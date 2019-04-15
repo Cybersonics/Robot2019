@@ -12,7 +12,7 @@ public class ElevatorFront extends Subsystem {
   private TalonSRX elevatorFront;
 
   public static final double DEADZONE = 0.05;
-  private static final double ELEVATOR_P = 10.0, ELEVATOR_I = 0.02, ELEVATOR_D = 0.0;
+  //private static final double ELEVATOR_P = 10.0, ELEVATOR_I = 0.02, ELEVATOR_D = 0.0;
   private static final int STATUS_FRAME_PERIOD = 5;
 
   public ElevatorFront() {

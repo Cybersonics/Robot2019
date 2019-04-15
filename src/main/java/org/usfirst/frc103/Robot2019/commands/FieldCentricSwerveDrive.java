@@ -2,25 +2,20 @@ package org.usfirst.frc103.Robot2019.commands;
 
 import org.usfirst.frc103.Robot2019.Robot;
 import org.usfirst.frc103.Robot2019.RobotMap;
-
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import org.usfirst.frc103.Robot2019.OI;
+import edu.wpi.first.wpilibj.command.Command;
 
 public class FieldCentricSwerveDrive extends Command {
 	
 	public static final double OMEGA_SCALE = 1.0 / 30.0;
 	public static final double DEADZONE = 0.05;
 
-    private double originHeading = 0.0;
-    private boolean originLocked = false;
+	private double originHeading = 0.0;
+	private double originCorr = 0;
     private double leftPow = 1.0;
-    private double rightPow = 1.0;
+	private double rightPow = 1.0;
+	private double correctedHeading = 0;
 
 	public FieldCentricSwerveDrive() {
         requires(Robot.drive);
@@ -29,40 +24,29 @@ public class FieldCentricSwerveDrive extends Command {
 	
 	@Override
 	protected void initialize() {
-        originHeading = Robot.zeroHeading;
+		originHeading = Robot.zeroHeading;
+		originCorr = Robot.zeroAngle;
 	}
 
     @Override
 	protected void execute() {
-		if (Robot.oi.getLeftJoyButton(7)) originHeading = RobotMap.navX.getFusedHeading();
-		//if (OI.leftJoy.getRawButton(7)) originHeading = RobotMap.navX.getFusedHeading();
-    	
-    	//if (Robot.oi.leftJoy.getRawButton(8)) leftPow = 1.0;
-    	//if (Robot.oi.leftJoy.getRawButton(10)) leftPow = 1.5;
-    	//if (Robot.oi.leftJoy.getRawButton(12)) leftPow = 2.0;
-    	
-    	//if (Robot.oi.rightJoy.getRawButton(8)) rightPow = 1.0;
-    	//if (Robot.oi.rightJoy.getRawButton(10)) rightPow = 1.5;
-    	//if (Robot.oi.rightJoy.getRawButton(12)) rightPow = 2.0;
+		if (Robot.oi.getLeftJoyButton(7)) {
+			originHeading = RobotMap.navX.getFusedHeading();
+			originCorr = RobotMap.navX.getAngle();
+		}
+
+		//originCorr = originHeading -RobotMap.navX.getFusedHeading();
+		//double originOffset = 360 - originHeading;
+		correctedHeading = (RobotMap.navX.getAngle() - originCorr) % 360;
+		SmartDashboard.putNumber("OriginHeading", originHeading);
+		SmartDashboard.putNumber("OriginCorrection", originCorr);
+		//SmartDashboard.putNumber("OriginOffset", originOffset);
+		SmartDashboard.putNumber("CorrectedHeading", correctedHeading);
     		
 		double strafe = Math.pow(Math.abs(Robot.oi.leftJoy.getX()), leftPow) * Math.signum(Robot.oi.leftJoy.getX());
 		double forward = Math.pow(Math.abs(Robot.oi.leftJoy.getY()), leftPow) * -Math.signum(Robot.oi.leftJoy.getY());
         double omega = Math.pow(Math.abs(Robot.oi.rightJoy.getX()), rightPow) * Math.signum(Robot.oi.rightJoy.getX()) * OMEGA_SCALE;
-        /*double strafe = Math.pow(Math.abs(Robot.oi.controller.getX(Hand.kLeft)), leftPow) * Math.signum(Robot.oi.controller.getX(Hand.kLeft));
-		double forward = Math.pow(Math.abs(Robot.oi.controller.getY(Hand.kLeft)), leftPow) * -Math.signum(Robot.oi.controller.getY(Hand.kLeft));
-        double omega = Math.pow(Math.abs(Robot.oi.controller.getX(Hand.kRight)), rightPow) * Math.signum(Robot.oi.controller.getX(Hand.kRight)) * OMEGA_SCALE;*/
-        
-        /*if (Robot.oi.leftJoy.getRawButton(8)) {
-        	omega += Math.cos(5.0 * Math.PI * Timer.getFPGATimestamp()) * OMEGA_SCALE * 0.5;
-        }
-        if (Robot.oi.leftJoy.getRawButton(9)) {
-        	strafe += Math.cos(5.0 * Math.PI * Timer.getFPGATimestamp()) * 0.15;
-        }*/
-        /*if (Robot.oi.rightJoy.getTrigger()) {
-			strafe += Math.sin(15.0 * Math.PI * Timer.getFPGATimestamp()) * 0.2;
-			//omega += Math.sin(15.0 * Math.PI * Timer.getFPGATimestamp()) * 0.02;
-        }*/
-		
+       		
         // Add a small deadzone on the joysticks
         if (Math.abs(strafe) < Math.pow(DEADZONE, leftPow)) strafe = 0.0;
 		if (Math.abs(forward) < Math.pow(DEADZONE, leftPow)) forward = 0.0;
@@ -80,12 +64,8 @@ public class FieldCentricSwerveDrive extends Command {
 		}
 		
         if (!Robot.oi.leftJoy.getTrigger()) {
-        	// When the trigger is pressed, we lock the origin heading to the current
-        	// orientation of the robot, but only when the trigger is first pressed
-    	//	if (!originLocked) {
-    	//		//originHeading = RobotMap.navX.getFusedHeading();
-    	//		originLocked = true;
-    	//	}
+        	// When the Left Joystick trigger is not pressed, The robot is in Field Centric Mode.
+        	// The calculations correct the forward and strafe values for field centric attitude. 
     		
     		// Rotate the velocity vector from the joystick by the difference between our
     		// current orientation and the current origin heading
@@ -93,10 +73,38 @@ public class FieldCentricSwerveDrive extends Command {
     		double temp = forward * Math.cos(originCorrection) - strafe * Math.sin(originCorrection);
     		strafe = strafe * Math.cos(originCorrection) + forward * Math.sin(originCorrection);
     		forward = temp;
-    	//} else if (originLocked) {
-    	//	originLocked = false;
     	}
-        
+		
+		if (Robot.oi.rightJoy.getTrigger()){
+			double botHeading = Math.abs(correctedHeading);
+			double orientationError = 0;
+			double omegaAngle = 0;
+			boolean targetAngleAquired = false;
+			if (botHeading > 75 && botHeading < 105){
+				orientationError = 90 - Math.abs(correctedHeading);
+				targetAngleAquired = true;
+			}
+			if (botHeading > 165 && botHeading < 195){
+				orientationError = 180 - Math.abs(correctedHeading);
+				targetAngleAquired = true;
+			}
+			if (botHeading > 255 && botHeading < 285){
+				orientationError = 270 - Math.abs(correctedHeading);
+				targetAngleAquired = true;
+			}
+			if (Math.abs(orientationError) > 180.0) {
+				orientationError -= 360.0 * Math.signum(orientationError);
+			}
+			if (Math.abs(orientationError) > 2.0){
+				omegaAngle = Math.max(Math.min((orientationError / 360) * 0.2, 0.02), -0.02);//start at 0.08
+			} else {
+				omegaAngle = 0;
+			}
+			if (targetAngleAquired){
+				omega = omegaAngle;
+			}
+
+		}
         Robot.drive.swerveDrive(strafe, forward, omega);
     }
 

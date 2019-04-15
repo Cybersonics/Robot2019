@@ -1,10 +1,7 @@
 package org.usfirst.frc103.Robot2019.commands;
 
-import org.usfirst.frc103.Robot2019.OI;
 import org.usfirst.frc103.Robot2019.Robot;
-import org.usfirst.frc103.Robot2019.subsystems.ElevatorFront;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 

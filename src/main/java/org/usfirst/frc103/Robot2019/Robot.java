@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
 	Command autonomousCommand;
 
     public static double zeroHeading;
+    public static double zeroAngle;
     
     public static Pneumatics pneumatics;
     public static ElevatorFront elevatorFront;
@@ -67,6 +68,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("AutonomousCommands", autonomousChooser);
 
         zeroHeading = navX.getFusedHeading();
+        zeroAngle = navX.getAngle();
     }
 
     @Override
@@ -121,7 +123,7 @@ public class Robot extends TimedRobot {
     @Override
 	public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        //updateDashboard();
+        updateDashboard();
 
     	if (oi.leftJoy.getRawButton(10)) zeroHeading = RobotMap.navX.getFusedHeading();
     }
@@ -149,7 +151,7 @@ public class Robot extends TimedRobot {
     	//SmartDashboard.putNumber("NavX X Displacement", navX.getDisplacementX());
     	//SmartDashboard.putNumber("NavX Y Displacement", navX.getDisplacementY());
         SmartDashboard.putNumber("ZeroHeading", zeroHeading);
-        
+
         //SmartDashboard.putNumber("Front Elevator", elevatorFront.getElevatorFrontEncoder());
 
     }    
