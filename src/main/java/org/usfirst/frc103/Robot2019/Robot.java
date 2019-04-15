@@ -5,18 +5,10 @@ import static org.usfirst.frc103.Robot2019.RobotMap.navX;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-import org.usfirst.frc103.Robot2019.commands.CenterDriveForwardSpinSequence;
-import org.usfirst.frc103.Robot2019.commands.CenterDriveLeftForwardSpinSequence;
 import org.usfirst.frc103.Robot2019.commands.DoNothingAuto;
 import org.usfirst.frc103.Robot2019.commands.DriveFieldCentric;
 import org.usfirst.frc103.Robot2019.commands.DriveForward;
-import org.usfirst.frc103.Robot2019.commands.LeftDriveForwardContinueSequence;
-import org.usfirst.frc103.Robot2019.commands.LeftDriveForwardSequence;
-import org.usfirst.frc103.Robot2019.commands.LeftDriveForwardSpinSequence;
-import org.usfirst.frc103.Robot2019.commands.RightDriveForwardContinueSequence;
 import org.usfirst.frc103.Robot2019.commands.RightDriveForwardSequence;
-import org.usfirst.frc103.Robot2019.commands.RightDriveForwardSpinSequence;
 //import org.usfirst.frc103.Robot2019.commands.VisionAutoSequence;
 import org.usfirst.frc103.Robot2019.commands.SimpleDriveForward;
 import org.usfirst.frc103.Robot2019.subsystems.Drive;
