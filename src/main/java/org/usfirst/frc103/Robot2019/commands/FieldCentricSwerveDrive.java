@@ -25,22 +25,23 @@ public class FieldCentricSwerveDrive extends Command {
 	@Override
 	protected void initialize() {
 		originHeading = Robot.zeroHeading;
-		originCorr = Robot.zeroAngle;
+		//originCorr = Robot.zeroAngle;
 	}
 
     @Override
 	protected void execute() {
 		if (Robot.oi.getLeftJoyButton(7)) {
 			originHeading = RobotMap.navX.getFusedHeading();
-			originCorr = RobotMap.navX.getAngle();
+		//	originCorr = RobotMap.navX.getAngle();
 		}
 
 		//originCorr = originHeading -RobotMap.navX.getFusedHeading();
-		//double originOffset = 360 - originHeading;
-		correctedHeading = (RobotMap.navX.getAngle() - originCorr) % 360;
+		double originOffset = 360 - originHeading;
+		originCorr = RobotMap.navX.getFusedHeading() + originOffset;
+		correctedHeading = originCorr % 360;
 		SmartDashboard.putNumber("OriginHeading", originHeading);
 		SmartDashboard.putNumber("OriginCorrection", originCorr);
-		//SmartDashboard.putNumber("OriginOffset", originOffset);
+		SmartDashboard.putNumber("OriginOffset", originOffset);
 		SmartDashboard.putNumber("CorrectedHeading", correctedHeading);
     		
 		double strafe = Math.pow(Math.abs(Robot.oi.leftJoy.getX()), leftPow) * Math.signum(Robot.oi.leftJoy.getX());
@@ -76,20 +77,20 @@ public class FieldCentricSwerveDrive extends Command {
     	}
 		
 		if (Robot.oi.rightJoy.getTrigger()){
-			double botHeading = Math.abs(correctedHeading);
+			double botHeading = correctedHeading;
 			double orientationError = 0;
 			double omegaAngle = 0;
 			boolean targetAngleAquired = false;
 			if (botHeading > 75 && botHeading < 105){
-				orientationError = 90 - Math.abs(correctedHeading);
+				orientationError = 90 - correctedHeading;
 				targetAngleAquired = true;
 			}
 			if (botHeading > 165 && botHeading < 195){
-				orientationError = 180 - Math.abs(correctedHeading);
+				orientationError = 180 - correctedHeading;
 				targetAngleAquired = true;
 			}
 			if (botHeading > 255 && botHeading < 285){
-				orientationError = 270 - Math.abs(correctedHeading);
+				orientationError = 270 - correctedHeading;
 				targetAngleAquired = true;
 			}
 			if (Math.abs(orientationError) > 180.0) {

@@ -2,13 +2,8 @@ package org.usfirst.frc103.Robot2019;
 
 import static org.usfirst.frc103.Robot2019.RobotMap.navX;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.usfirst.frc103.Robot2019.commands.DoNothingAuto;
-import org.usfirst.frc103.Robot2019.commands.DriveFieldCentric;
 import org.usfirst.frc103.Robot2019.commands.DriveForward;
-import org.usfirst.frc103.Robot2019.commands.RightDriveForwardSequence;
 //import org.usfirst.frc103.Robot2019.commands.VisionAutoSequence;
 import org.usfirst.frc103.Robot2019.commands.SimpleDriveForward;
 import org.usfirst.frc103.Robot2019.subsystems.Drive;
@@ -18,13 +13,9 @@ import org.usfirst.frc103.Robot2019.subsystems.Pneumatics;
 import org.usfirst.frc103.Robot2019.subsystems.Intake;
 import org.usfirst.frc103.Robot2019.subsystems.Arm;
 
-import org.usfirst.frc103.Robot2019.subsystems.Drive;
-
-
 import edu.wpi.first.wpilibj.TimedRobot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
