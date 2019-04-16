@@ -42,8 +42,14 @@ public class FieldCentricSwerveDrive extends Command {
 		SmartDashboard.putNumber("OriginHeading", originHeading);
 		SmartDashboard.putNumber("OriginCorrection", originCorr);
 		SmartDashboard.putNumber("OriginOffset", originOffset);
-		SmartDashboard.putNumber("CorrectedHeading", correctedHeading);
-    		
+		SmartDashboard.putNumber("CorrectedHeading", correctedHeading);	
+		SmartDashboard.putBoolean("Left Outer Tracker", RobotMap.leftOuterLineTracker.get());
+		SmartDashboard.putBoolean("Left Middle Tracker", RobotMap.leftMiddleLineTracker.get());
+		SmartDashboard.putBoolean("Left Center Tracker", RobotMap.leftCenterLineTracker.get());	
+		SmartDashboard.putBoolean("Right Center Tracker", RobotMap.rightCenterLineTracker.get());
+		SmartDashboard.putBoolean("Right Middle Tracker", RobotMap.rightMiddleLineTracker.get());
+		SmartDashboard.putBoolean("Right Outer Tracker", RobotMap.rightOuterLineTracker.get());
+
 		double strafe = Math.pow(Math.abs(Robot.oi.leftJoy.getX()), leftPow) * Math.signum(Robot.oi.leftJoy.getX());
 		double forward = Math.pow(Math.abs(Robot.oi.leftJoy.getY()), leftPow) * -Math.signum(Robot.oi.leftJoy.getY());
         double omega = Math.pow(Math.abs(Robot.oi.rightJoy.getX()), rightPow) * Math.signum(Robot.oi.rightJoy.getX()) * OMEGA_SCALE;

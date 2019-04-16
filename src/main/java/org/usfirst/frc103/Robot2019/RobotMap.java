@@ -4,11 +4,11 @@ import org.usfirst.frc103.Robot2019.subsystems.RangeFinder;
 
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Direction;
 import edu.wpi.first.wpilibj.Relay.Value;
@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.cameraserver.CameraServer;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Servo;
@@ -28,6 +27,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import org.usfirst.frc103.Robot2019.subsystems.Drive;
 import org.usfirst.frc103.Robot2019.subsystems.Pneumatics;
 import org.usfirst.frc103.Robot2019.subsystems.Intake;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -37,22 +37,18 @@ import org.usfirst.frc103.Robot2019.subsystems.Intake;
  * floating around.
  */
 public class RobotMap {
-    public static AHRS navX;
- 
+    public static AHRS navX; 
     public static Ultrasonic ultrasonic;
-
-
-    /*
-    public static Pneumatics pneumatics;
-    public static Elevators elevator;
-    public static Drive drive;
-    public static Intake intake;
-    */
+    public static DigitalInput leftOuterLineTracker;
+    public static DigitalInput leftMiddleLineTracker;
+    public static DigitalInput leftCenterLineTracker;
+    public static DigitalInput rightCenterLineTracker;
+    public static DigitalInput rightMiddleLineTracker;
+    public static DigitalInput rightOuterLineTracker;
 
     public static final int LEFT_JOYSTICK = 0;
     public static final int RIGHT_JOYSTICK = 1;
     public static final int CONTROLLER = 2;
-
 
     public static final int DRIVE_LEFT_FRONT_TALON = 10;
     public static final int DRIVE_LEFT_REAR_TALON = 11;
@@ -78,19 +74,20 @@ public class RobotMap {
 
     public static void init() {
 
-        /*
-        elevator = new Elevators();
-        pneumatics = new Pneumatics();
-        drive = new Drive();
-        intake = new Intake();
-        */
         
         navX = new AHRS(SPI.Port.kMXP);
-      
+        leftOuterLineTracker = new DigitalInput(10);
+        leftMiddleLineTracker = new DigitalInput(11);
+        leftCenterLineTracker = new DigitalInput(12);
+        rightCenterLineTracker = new DigitalInput(13);
+        rightMiddleLineTracker = new DigitalInput(9);
+        rightOuterLineTracker = new DigitalInput(8);
+
         //ultrasonic = new Ultrasonic(8, 9);
         //RangeFinder.start();
 
         CameraServer.getInstance().startAutomaticCapture();
+
     }
     
 }
