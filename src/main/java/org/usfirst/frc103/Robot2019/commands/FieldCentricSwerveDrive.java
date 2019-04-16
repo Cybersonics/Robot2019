@@ -32,10 +32,8 @@ public class FieldCentricSwerveDrive extends Command {
 	protected void execute() {
 		if (Robot.oi.getLeftJoyButton(7)) {
 			originHeading = RobotMap.navX.getFusedHeading();
-		//	originCorr = RobotMap.navX.getAngle();
 		}
 
-		//originCorr = originHeading -RobotMap.navX.getFusedHeading();
 		double originOffset = 360 - originHeading;
 		originCorr = RobotMap.navX.getFusedHeading() + originOffset;
 		correctedHeading = originCorr % 360;
@@ -77,19 +75,18 @@ public class FieldCentricSwerveDrive extends Command {
     	}
 		
 		if (Robot.oi.rightJoy.getTrigger()){
-			double botHeading = correctedHeading;
 			double orientationError = 0;
 			double omegaAngle = 0;
 			boolean targetAngleAquired = false;
-			if (botHeading > 75 && botHeading < 105){
+			if (correctedHeading > 75 && correctedHeading < 105){
 				orientationError = 90 - correctedHeading;
 				targetAngleAquired = true;
 			}
-			if (botHeading > 165 && botHeading < 195){
+			if (correctedHeading > 165 && correctedHeading < 195){
 				orientationError = 180 - correctedHeading;
 				targetAngleAquired = true;
 			}
-			if (botHeading > 255 && botHeading < 285){
+			if (correctedHeading > 255 && correctedHeading < 285){
 				orientationError = 270 - correctedHeading;
 				targetAngleAquired = true;
 			}
@@ -97,7 +94,7 @@ public class FieldCentricSwerveDrive extends Command {
 				orientationError -= 360.0 * Math.signum(orientationError);
 			}
 			if (Math.abs(orientationError) > 2.0){
-				omegaAngle = Math.max(Math.min((orientationError / 360) * 0.2, 0.02), -0.02);//start at 0.08
+				omegaAngle = Math.max(Math.min((orientationError / 360) * 0.50, 0.02), -0.02);//start at 0.08
 			} else {
 				omegaAngle = 0;
 			}
