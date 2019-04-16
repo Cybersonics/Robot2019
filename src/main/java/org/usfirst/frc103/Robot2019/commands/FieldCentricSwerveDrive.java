@@ -16,6 +16,8 @@ public class FieldCentricSwerveDrive extends Command {
     private double leftPow = 1.0;
 	private double rightPow = 1.0;
 	private double correctedHeading = 0;
+	private boolean targetAngleAquired = false;
+	private double orientationAngle = 0;
 
 	public FieldCentricSwerveDrive() {
         requires(Robot.drive);
@@ -77,19 +79,36 @@ public class FieldCentricSwerveDrive extends Command {
 		if (Robot.oi.rightJoy.getTrigger()){
 			double orientationError = 0;
 			double omegaAngle = 0;
-			boolean targetAngleAquired = false;
-			if (correctedHeading > 75 && correctedHeading < 105){
-				orientationError = 90 - correctedHeading;
+			if (correctedHeading > 75 && correctedHeading < 105 && targetAngleAquired == false){
+				orientationAngle = 90;
 				targetAngleAquired = true;
 			}
-			if (correctedHeading > 165 && correctedHeading < 195){
-				orientationError = 180 - correctedHeading;
+			if (correctedHeading > 165 && correctedHeading < 195 && targetAngleAquired == false){
+				orientationAngle = 180;
 				targetAngleAquired = true;
 			}
-			if (correctedHeading > 255 && correctedHeading < 285){
-				orientationError = 270 - correctedHeading;
+			if (correctedHeading > 255 && correctedHeading < 285 && targetAngleAquired == false){
+				orientationAngle = 270;
 				targetAngleAquired = true;
 			}
+			//Rocket angles below
+			if (correctedHeading < 70 && correctedHeading > 30 && targetAngleAquired == false){
+				orientationAngle = 27.5;
+				targetAngleAquired = true;
+			}
+			if (correctedHeading > 115 && correctedHeading < 155 && targetAngleAquired == false){
+				orientationAngle = 148;
+				targetAngleAquired = true;
+			}
+			if (correctedHeading > 200 && correctedHeading < 245 && targetAngleAquired == false){
+				orientationAngle = 210;
+				targetAngleAquired = true;
+			}
+			if (correctedHeading > 290 && correctedHeading < 350 && targetAngleAquired == false){
+				orientationAngle = 340;
+				targetAngleAquired = true;
+			}
+			orientationError = orientationAngle - correctedHeading;
 			if (Math.abs(orientationError) > 180.0) {
 				orientationError -= 360.0 * Math.signum(orientationError);
 			}
@@ -102,6 +121,9 @@ public class FieldCentricSwerveDrive extends Command {
 				omega = omegaAngle;
 			}
 
+		}
+		if(!Robot.oi.rightJoy.getTrigger()){
+			targetAngleAquired = false;
 		}
         Robot.drive.swerveDrive(strafe, forward, omega);
     }
