@@ -18,6 +18,12 @@ public class FieldCentricSwerveDrive extends Command {
 	private double correctedHeading = 0;
 	private boolean targetAngleAquired = false;
 	private double orientationAngle = 0;
+	private boolean leftOuterTrack = false;
+	private boolean leftMiddleTrack = false;
+	private boolean leftCenterTrack = false;
+	private boolean rightCenterTrack = false;
+	private boolean rightMiddleTrack = false;
+	private boolean rightOuterTrack = false;
 
 	public FieldCentricSwerveDrive() {
         requires(Robot.drive);
@@ -39,16 +45,26 @@ public class FieldCentricSwerveDrive extends Command {
 		double originOffset = 360 - originHeading;
 		originCorr = RobotMap.navX.getFusedHeading() + originOffset;
 		correctedHeading = originCorr % 360;
+
+		//Track boolean values are inverted as input from sensors is false when line 
+		//is present, and true when no line is present.
+		leftOuterTrack = !RobotMap.leftOuterLineTracker.get();
+		leftMiddleTrack = !RobotMap.leftMiddleLineTracker.get();
+		leftCenterTrack = !RobotMap.leftCenterLineTracker.get();
+		rightCenterTrack = !RobotMap.rightCenterLineTracker.get();
+		rightMiddleTrack = !RobotMap.rightMiddleLineTracker.get();
+		rightOuterTrack = !RobotMap.rightOuterLineTracker.get();
 		SmartDashboard.putNumber("OriginHeading", originHeading);
 		SmartDashboard.putNumber("OriginCorrection", originCorr);
 		SmartDashboard.putNumber("OriginOffset", originOffset);
 		SmartDashboard.putNumber("CorrectedHeading", correctedHeading);	
-		SmartDashboard.putBoolean("Left Outer Tracker", RobotMap.leftOuterLineTracker.get());
-		SmartDashboard.putBoolean("Left Middle Tracker", RobotMap.leftMiddleLineTracker.get());
-		SmartDashboard.putBoolean("Left Center Tracker", RobotMap.leftCenterLineTracker.get());	
-		SmartDashboard.putBoolean("Right Center Tracker", RobotMap.rightCenterLineTracker.get());
-		SmartDashboard.putBoolean("Right Middle Tracker", RobotMap.rightMiddleLineTracker.get());
-		SmartDashboard.putBoolean("Right Outer Tracker", RobotMap.rightOuterLineTracker.get());
+		SmartDashboard.putBoolean("Left Outer Tracker", leftOuterTrack);
+		SmartDashboard.putBoolean("Left Middle Tracker", leftMiddleTrack);
+		SmartDashboard.putBoolean("Left Center Tracker", leftCenterTrack);	
+		SmartDashboard.putBoolean("Right Center Tracker", rightCenterTrack);
+		SmartDashboard.putBoolean("Right Middle Tracker", rightMiddleTrack);
+		SmartDashboard.putBoolean("Right Outer Tracker", rightOuterTrack);
+		
 
 		double strafe = Math.pow(Math.abs(Robot.oi.leftJoy.getX()), leftPow) * Math.signum(Robot.oi.leftJoy.getX());
 		double forward = Math.pow(Math.abs(Robot.oi.leftJoy.getY()), leftPow) * -Math.signum(Robot.oi.leftJoy.getY());
@@ -69,51 +85,44 @@ public class FieldCentricSwerveDrive extends Command {
 			Robot.drive.setDriveRightRear(0.0);
 			return;
 		}
-		
-        if (!Robot.oi.leftJoy.getTrigger()) {
-        	// When the Left Joystick trigger is not pressed, The robot is in Field Centric Mode.
-        	// The calculations correct the forward and strafe values for field centric attitude. 
-    		
-    		// Rotate the velocity vector from the joystick by the difference between our
-    		// current orientation and the current origin heading
-    		double originCorrection = Math.toRadians(originHeading - RobotMap.navX.getFusedHeading());
-    		double temp = forward * Math.cos(originCorrection) - strafe * Math.sin(originCorrection);
-    		strafe = strafe * Math.cos(originCorrection) + forward * Math.sin(originCorrection);
-    		forward = temp;
-    	}
-		
+		SmartDashboard.putNumber("Strafe", strafe);
 		if (Robot.oi.rightJoy.getTrigger()){
 			double orientationError = 0;
 			double omegaAngle = 0;
-			if (correctedHeading > 75 && correctedHeading < 105 && targetAngleAquired == false){
-				orientationAngle = 90;
-				targetAngleAquired = true;
-			}
-			if (correctedHeading > 165 && correctedHeading < 195 && targetAngleAquired == false){
-				orientationAngle = 180;
-				targetAngleAquired = true;
-			}
-			if (correctedHeading > 255 && correctedHeading < 285 && targetAngleAquired == false){
-				orientationAngle = 270;
-				targetAngleAquired = true;
-			}
+
 			//Rocket angles below
-			if (correctedHeading < 70 && correctedHeading > 30 && targetAngleAquired == false){
-				orientationAngle = 27.5;
-				targetAngleAquired = true;
+			if (Robot.oi.rightJoy.getRawButton(4)) {
+				if (correctedHeading > 15 && correctedHeading < 45 && targetAngleAquired == false){
+					orientationAngle = 29;
+					targetAngleAquired = true;
+				}
+				if (correctedHeading > 135 && correctedHeading < 165 && targetAngleAquired == false){
+					orientationAngle = 151;
+					targetAngleAquired = true;
+				}
+				if (correctedHeading > 195 && correctedHeading < 235 && targetAngleAquired == false){
+					orientationAngle = 209;
+					targetAngleAquired = true;
+				}
+				if (correctedHeading > 315 && correctedHeading < 345 && targetAngleAquired == false){
+					orientationAngle = 331;
+					targetAngleAquired = true;
+				}
+			} else {
+				if (correctedHeading > 75 && correctedHeading < 105 && targetAngleAquired == false){
+					orientationAngle = 90;
+					targetAngleAquired = true;
+				}
+				if (correctedHeading > 165 && correctedHeading < 195 && targetAngleAquired == false){
+					orientationAngle = 180;
+					targetAngleAquired = true;
+				}
+				if (correctedHeading > 255 && correctedHeading < 285 && targetAngleAquired == false){
+					orientationAngle = 270;
+					targetAngleAquired = true;
+				}
 			}
-			if (correctedHeading > 115 && correctedHeading < 155 && targetAngleAquired == false){
-				orientationAngle = 148;
-				targetAngleAquired = true;
-			}
-			if (correctedHeading > 200 && correctedHeading < 245 && targetAngleAquired == false){
-				orientationAngle = 210;
-				targetAngleAquired = true;
-			}
-			if (correctedHeading > 290 && correctedHeading < 350 && targetAngleAquired == false){
-				orientationAngle = 340;
-				targetAngleAquired = true;
-			}
+
 			orientationError = orientationAngle - correctedHeading;
 			if (Math.abs(orientationError) > 180.0) {
 				orientationError -= 360.0 * Math.signum(orientationError);
@@ -131,6 +140,37 @@ public class FieldCentricSwerveDrive extends Command {
 		if(!Robot.oi.rightJoy.getTrigger()){
 			targetAngleAquired = false;
 		}
+
+		if (!Robot.oi.leftJoy.getTrigger()) {
+        	// When the Left Joystick trigger is not pressed, The robot is in Field Centric Mode.
+        	// The calculations correct the forward and strafe values for field centric attitude. 
+    		
+    		// Rotate the velocity vector from the joystick by the difference between our
+    		// current orientation and the current origin heading
+    		double originCorrection = Math.toRadians(originHeading - RobotMap.navX.getFusedHeading());
+    		double temp = forward * Math.cos(originCorrection) - strafe * Math.sin(originCorrection);
+    		strafe = strafe * Math.cos(originCorrection) + forward * Math.sin(originCorrection);
+    		forward = temp;
+		}
+		
+		if (Robot.oi.rightJoy.getTrigger()) {
+			
+			// if (leftOuterTrack) strafe = -0.22;
+			// if (leftMiddleTrack) strafe = -0.2;
+			// if (leftCenterTrack) strafe = -0.18;
+			// if (rightCenterTrack) strafe = 0.18;
+			// if (rightMiddleTrack) strafe = 0.2;
+			// if (rightOuterTrack) strafe = 0.22;
+			// if (leftCenterTrack && rightCenterTrack) strafe = 0;
+			if (leftOuterTrack) strafe = -0.22;
+			if (leftMiddleTrack) strafe = -0.22;
+			if (leftCenterTrack) strafe = -0.2;
+			if (rightCenterTrack) strafe = -0.2;
+			if (rightMiddleTrack) strafe = 0.2;
+			if (rightOuterTrack) strafe = 0.22;
+			if (rightMiddleTrack && rightCenterTrack) strafe = 0;
+		}
+
         Robot.drive.swerveDrive(strafe, forward, omega);
     }
 
