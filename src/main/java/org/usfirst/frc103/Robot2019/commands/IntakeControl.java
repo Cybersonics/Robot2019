@@ -20,9 +20,8 @@ public class IntakeControl extends Command {
   @Override
   protected void execute() {
     if (Robot.oi.leftJoy.getRawButton(2)) {
-      //Robot.intake.climbIntake();
       Robot.intake.driverIntakeIn();
-    } else if (Robot.oi.rightJoy.getRawButton(2)) {
+    } else if (Robot.oi.rightJoy.getRawButton(3)) {
       Robot.intake.driverIntakeOut();
     } else {
       Robot.intake.intakeRun(Robot.oi.controller.getTriggerAxis(Hand.kLeft), Robot.oi.controller.getTriggerAxis(Hand.kRight));

@@ -91,7 +91,7 @@ public class FieldCentricSwerveDrive extends Command {
 			double omegaAngle = 0;
 
 			//Rocket angles below
-			if (Robot.oi.rightJoy.getRawButton(4)) {
+			if (Robot.oi.rightJoy.getRawButton(2)) {
 				if (correctedHeading > 15 && correctedHeading < 45 && targetAngleAquired == false){
 					orientationAngle = 29;
 					targetAngleAquired = true;
@@ -109,6 +109,12 @@ public class FieldCentricSwerveDrive extends Command {
 					targetAngleAquired = true;
 				}
 			} else {
+				if (correctedHeading > 345 && correctedHeading < 360 || correctedHeading > 0 && correctedHeading < 15 
+					&& targetAngleAquired == false){
+
+					orientationAngle = 0;
+					targetAngleAquired = true;
+				}
 				if (correctedHeading > 75 && correctedHeading < 105 && targetAngleAquired == false){
 					orientationAngle = 90;
 					targetAngleAquired = true;
@@ -153,6 +159,10 @@ public class FieldCentricSwerveDrive extends Command {
     		forward = temp;
 		}
 		
+		//Center the robot on the lines using the line tracker sensors
+		//This code must come after the Field Centric code as the strafe is being overridden.
+		//We want the centering strafe to always act as robot centric to make the 
+		//robot move side to side to center itself.
 		if (Robot.oi.rightJoy.getTrigger()) {
 			
 			// if (leftOuterTrack) strafe = -0.22;
@@ -165,9 +175,9 @@ public class FieldCentricSwerveDrive extends Command {
 			if (leftOuterTrack) strafe = -0.22;
 			if (leftMiddleTrack) strafe = -0.22;
 			if (leftCenterTrack) strafe = -0.2;
-			if (rightCenterTrack) strafe = -0.2;
-			if (rightMiddleTrack) strafe = 0.2;
-			if (rightOuterTrack) strafe = 0.22;
+			if (rightCenterTrack) strafe = -0.18;
+			if (rightMiddleTrack) strafe = 0.18;
+			if (rightOuterTrack) strafe = 0.2;
 			if (rightMiddleTrack && rightCenterTrack) strafe = 0;
 		}
 
