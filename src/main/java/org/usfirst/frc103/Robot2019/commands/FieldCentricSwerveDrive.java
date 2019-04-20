@@ -185,11 +185,11 @@ public class FieldCentricSwerveDrive extends Command {
 			if (leftMiddleTrack) strafe = -0.22;
 			if (leftMiddleTrack && leftCenterTrack) strafe = -0.2;
 			if (leftCenterTrack) strafe = -0.2;
-			if (rightCenterTrack) strafe = -0.02;//-0.18
-			if (rightCenterTrack && rightMiddleTrack) strafe = 0;
-			if (rightMiddleTrack) strafe = 0.02;//0.18
+			if (rightCenterTrack) strafe = -0.08;//-0.18
+			if (rightMiddleTrack) strafe = 0.08;//0.18
 			if (rightOuterTrack && rightMiddleTrack) strafe = 0.2;
 			if (rightOuterTrack) strafe = 0.2;
+			if (rightCenterTrack && rightMiddleTrack) strafe = 0;
 		}
 
         Robot.drive.swerveDrive(strafe, forward, omega);

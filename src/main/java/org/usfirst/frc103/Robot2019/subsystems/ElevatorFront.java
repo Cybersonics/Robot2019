@@ -17,7 +17,7 @@ public class ElevatorFront extends Subsystem {
 
   public ElevatorFront() {
     elevatorFront = new TalonSRX(RobotMap.ELEVATOR_FRONT_TALON);
-    elevatorFront.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+    elevatorFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 /*    elevatorFront.config_kP(0, ELEVATOR_P, 0);
     elevatorFront.config_kI(0, ELEVATOR_I, 0);
     elevatorFront.config_kD(0, ELEVATOR_D, 0);
@@ -43,7 +43,6 @@ public class ElevatorFront extends Subsystem {
     elevatorFront.set(ControlMode.Position, position);
   }
 
-  //XXX: Not sure if this is right
   public void zeroElevatorFrontPosition() {
     elevatorFront.set(ControlMode.Position, 0.0);
   }

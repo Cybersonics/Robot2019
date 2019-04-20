@@ -114,9 +114,9 @@ public class Robot extends TimedRobot {
     @Override
 	public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        updateDashboard();
+        //updateDashboard();
 
-    	if (oi.leftJoy.getRawButton(10)) zeroHeading = RobotMap.navX.getFusedHeading();
+    	//if (oi.leftJoy.getRawButton(10)) zeroHeading = RobotMap.navX.getFusedHeading();
     }
 
     @Override

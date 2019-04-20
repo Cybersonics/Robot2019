@@ -1,9 +1,9 @@
 package org.usfirst.frc103.Robot2019.commands;
 
 import org.usfirst.frc103.Robot2019.Robot;
-
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorFrontControl extends Command {
   public ElevatorFrontControl() {
@@ -17,6 +17,7 @@ public class ElevatorFrontControl extends Command {
   @Override
   protected void execute() {
     Robot.elevatorFront.setElevatorFront(Robot.oi.controller.getY(Hand.kRight));
+    SmartDashboard.putNumber("Elevator", Robot.elevatorFront.getElevatorFrontEncoder());
 /*    if (OI.controller.getY(Hand.kRight) > ElevatorFront.DEADZONE) {
       Robot.elevatorFront.setElevatorFront(OI.controller.getY(Hand.kRight));
     }
@@ -44,7 +45,6 @@ public class ElevatorFrontControl extends Command {
     }
     */
   }
-
   @Override
   protected boolean isFinished() {
     return false;

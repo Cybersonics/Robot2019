@@ -2,32 +2,13 @@ package org.usfirst.frc103.Robot2019;
 
 import org.usfirst.frc103.Robot2019.subsystems.RangeFinder;
 
-import com.ctre.phoenix.motorcontrol.*;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Relay.Direction;
-import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 //import edu.wpi.first.wpilibj.CameraServer;
 //import edu.wpi.first.cameraserver.*;
 import edu.wpi.first.cameraserver.CameraServer;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.XboxController;
-import org.usfirst.frc103.Robot2019.subsystems.Drive;
-import org.usfirst.frc103.Robot2019.subsystems.Pneumatics;
-import org.usfirst.frc103.Robot2019.subsystems.Intake;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
