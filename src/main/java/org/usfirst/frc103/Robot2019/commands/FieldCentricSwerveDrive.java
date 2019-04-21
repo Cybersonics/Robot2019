@@ -55,8 +55,8 @@ public class FieldCentricSwerveDrive extends Command {
 		rightMiddleTrack = !RobotMap.rightMiddleLineTracker.get();
 		rightOuterTrack = !RobotMap.rightOuterLineTracker.get();
 		SmartDashboard.putNumber("OriginHeading", originHeading);
-		SmartDashboard.putNumber("OriginCorrection", originCorr);
-		SmartDashboard.putNumber("OriginOffset", originOffset);
+		//SmartDashboard.putNumber("OriginCorrection", originCorr);
+		//SmartDashboard.putNumber("OriginOffset", originOffset);
 		SmartDashboard.putNumber("CorrectedHeading", correctedHeading);	
 		SmartDashboard.putBoolean("Left Outer Tracker", leftOuterTrack);
 		SmartDashboard.putBoolean("Left Middle Tracker", leftMiddleTrack);
@@ -172,14 +172,19 @@ public class FieldCentricSwerveDrive extends Command {
 			// if (rightMiddleTrack) strafe = 0.2;
 			// if (rightOuterTrack) strafe = 0.22;
 			// if (leftCenterTrack && rightCenterTrack) strafe = 0;
-			/*if (leftOuterTrack) strafe = -0.22;
-			if (leftMiddleTrack) strafe = -0.22;
-			if (leftCenterTrack) strafe = -0.2;
-			if (rightCenterTrack) strafe = -0.18;
-			if (rightMiddleTrack) strafe = 0.18;
-			if (rightOuterTrack) strafe = 0.2;
-			if (rightMiddleTrack && rightCenterTrack) strafe = 0;
-			*/
+			if (leftOuterTrack) strafe = -0.22;
+			if (leftOuterTrack && leftMiddleTrack) strafe = -0.21;
+			if (leftMiddleTrack) strafe = -0.195;
+			if (leftMiddleTrack && leftCenterTrack) strafe = -0.175;
+			if (leftCenterTrack) strafe = -0.165;
+			if (rightCenterTrack) strafe = 0.165;
+			if (rightCenterTrack && rightMiddleTrack) strafe = 0.175;
+			if (rightMiddleTrack) strafe = 0.195;
+			if (rightMiddleTrack && rightOuterTrack) strafe = 0.21;
+			if (rightOuterTrack) strafe = 0.22;
+			if (leftCenterTrack && rightCenterTrack) strafe = 0;
+			
+			/*
 			if (leftOuterTrack) strafe = -0.22;
 			if (leftOuterTrack && leftMiddleTrack) strafe = -0.22;
 			if (leftMiddleTrack) strafe = -0.22;
@@ -190,6 +195,7 @@ public class FieldCentricSwerveDrive extends Command {
 			if (rightOuterTrack && rightMiddleTrack) strafe = 0.2;
 			if (rightOuterTrack) strafe = 0.2;
 			if (rightCenterTrack && rightMiddleTrack) strafe = 0;
+			*/
 		}
 
         Robot.drive.swerveDrive(strafe, forward, omega);

@@ -3,7 +3,6 @@ package org.usfirst.frc103.Robot2019.subsystems;
 import java.util.Arrays;
 import java.util.Collections;
 
-import org.usfirst.frc103.Robot2019.Robot;
 import org.usfirst.frc103.Robot2019.RobotMap;
 import org.usfirst.frc103.Robot2019.commands.FieldCentricSwerveDrive;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -329,7 +328,7 @@ public class Drive extends Subsystem {
     	driveRightFront.setSelectedSensorPosition(0, 0, 0);
     	driveLeftRear.setSelectedSensorPosition(0, 0, 0);
 		driveRightRear.setSelectedSensorPosition(0, 0, 0);
-    }
+	}
 	
 	@Override
 	public void initDefaultCommand() {
