@@ -52,7 +52,7 @@ public class DriveForward extends Command {
 		if (Math.abs(angleError) > 180.0) {
 			angleError -= 360.0 * Math.signum(angleError);
     	}
-		
+		/*
 		if ((Math.abs(Robot.drive.getDriveLFEncoder()) < distance) &&
 				(Math.abs(Robot.drive.getDriveLREncoder()) < distance) &&
 				(Math.abs(Robot.drive.getDriveRFEncoder()) < distance) &&
@@ -62,7 +62,7 @@ public class DriveForward extends Command {
 		} else {
 			forward = 0.0;
 			isDone = true;
-		}
+		}*/
 		// Rotate the velocity vector from the joystick by the difference between our
 		// current orientation and the current origin heading
 		

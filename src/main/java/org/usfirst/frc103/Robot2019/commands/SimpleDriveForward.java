@@ -25,7 +25,7 @@ public class SimpleDriveForward extends Command {
   protected void execute() {
 
     double forward = 0.0;
-
+    /*
     if ((Math.abs(Robot.drive.getDriveLFEncoder()) < distance) &&
 				(Math.abs(Robot.drive.getDriveLREncoder()) < distance) &&
 				(Math.abs(Robot.drive.getDriveRFEncoder()) < distance) &&
@@ -36,7 +36,7 @@ public class SimpleDriveForward extends Command {
 			forward = 0.0;
 			isDone = true;
     }
-    
+    */
     Robot.drive.swerveDrive(0.0, forward, 0.0);
   }
 

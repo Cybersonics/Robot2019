@@ -31,10 +31,14 @@ public class RobotMap {
     public static final int RIGHT_JOYSTICK = 1;
     public static final int CONTROLLER = 2;
 
-    public static final int DRIVE_LEFT_FRONT_TALON = 10;
-    public static final int DRIVE_LEFT_REAR_TALON = 11;
-    public static final int DRIVE_RIGHT_FRONT_TALON = 12;
-    public static final int DRIVE_RIGHT_REAR_TALON = 13;
+    public static final int DRIVE_LEFT_FRONT_SPARK = 10;
+    public static final int DRIVE_LEFT_REAR_SPARK = 11;
+    public static final int DRIVE_RIGHT_FRONT_SPARK = 12;
+    public static final int DRIVE_RIGHT_REAR_SPARK = 13;
+    // public static final int DRIVE_LEFT_FRONT_TALON = 10;
+    // public static final int D RIVE_LEFT_REAR_TALON = 11;
+    // public static final int DRIVE_RIGHT_FRONT_TALON = 12;
+    // public static final int DRIVE_RIGHT_REAR_TALON = 13;
     public static final int STEER_LEFT_FRONT_TALON = 16;
     public static final int STEER_LEFT_REAR_TALON = 17;
     public static final int STEER_RIGHT_FRONT_TALON = 18;

@@ -8,20 +8,33 @@ import org.usfirst.frc103.Robot2019.commands.FieldCentricSwerveDrive;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANPIDController;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Drive extends Subsystem {
 
-	private TalonSRX driveLeftFront;
-	private TalonSRX driveLeftRear;
-	private TalonSRX driveRightFront;
-	private TalonSRX driveRightRear;
+	private CANSparkMax driveLeftFrontSpark;
+	private CANSparkMax driveLeftRearSpark;
+	private CANSparkMax driveRightFrontSpark;
+	private CANSparkMax driveRightRearSpark;
+	// private TalonSRX driveLeftFront;
+	// private TalonSRX driveLeftRear;
+	// private TalonSRX driveRightFront;
+	// private TalonSRX driveRightRear;
 	private TalonSRX steerLeftFront;
 	private TalonSRX steerLeftRear;
 	private TalonSRX steerRightFront;
 	private TalonSRX steerRightRear;
 
-	public static final double WHEEL_BASE_LENGTH = 20; //28.0;
-	public static final double WHEEL_BASE_WIDTH = 24; //22.0;
+	public CANPIDController driveLeftFrontController;
+	public CANPIDController driveLeftRearController;
+	public CANPIDController driveRightFrontController;
+	public CANPIDController driveRightRearController;
+
+	public static final double WHEEL_BASE_LENGTH = 20.5; //28.0 or 20.0;
+	public static final double WHEEL_BASE_WIDTH = 24.5; //22.0;
 	public static final double ENCODER_COUNT_PER_ROTATION = 1024.0;
 
 	public static final double WHEEL_DIAMETER = 4.0;
@@ -39,10 +52,21 @@ public class Drive extends Subsystem {
 	private static final int STATUS_FRAME_PERIOD = 5;
 
 	public Drive() {
-		driveLeftFront = new TalonSRX(RobotMap.DRIVE_LEFT_FRONT_TALON);
+		driveLeftFrontSpark = new CANSparkMax(10, MotorType.kBrushless);
+		driveLeftFrontSpark.restoreFactoryDefaults();
+		driveLeftFrontSpark.setIdleMode(IdleMode.kBrake);
+		driveLeftFrontSpark.setOpenLoopRampRate(0.125);
+		driveLeftFrontSpark.setSmartCurrentLimit(60);
+		/*driveLeftFrontController = new CANPIDController(driveLeftFrontSpark);
+		driveLeftFrontController.setP(DRIVE_P);
+		driveLeftFrontController.setI(DRIVE_I);
+		driveLeftFrontController.setD(DRIVE_D);
+		driveLeftFrontController.setIZone(DRIVE_I_ZONE);
+		driveLeftFrontController*/
+		/*driveLeftFront = new TalonSRX(RobotMap.DRIVE_LEFT_FRONT_TALON);
 		driveLeftFront.configFactoryDefault();
         driveLeftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-        driveLeftFront.setInverted(false);
+        driveLeftFront.setInverted(false);*/
         // driveLeftFront.config_kP(0, DRIVE_P, 0);
         // driveLeftFront.config_kI(0, DRIVE_I, 0);
         // driveLeftFront.config_kD(0, DRIVE_D, 0);
@@ -53,11 +77,17 @@ public class Drive extends Subsystem {
         // driveLeftFront.configVelocityMeasurementPeriod(DRIVE_MEASUREMENT_PERIOD, 0);
 		// driveLeftFront.configVelocityMeasurementWindow(DRIVE_MEASUREMENT_WINDOW, 0);
 		// driveLeftFront.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD);
-        
-		driveLeftRear = new TalonSRX(RobotMap.DRIVE_LEFT_REAR_TALON);
+		
+		
+		driveLeftRearSpark = new CANSparkMax(11, MotorType.kBrushless);
+		driveLeftRearSpark.restoreFactoryDefaults();
+		driveLeftRearSpark.setIdleMode(IdleMode.kBrake);
+		driveLeftRearSpark.setOpenLoopRampRate(0.125);
+		driveLeftRearSpark.setSmartCurrentLimit(60);
+		/*driveLeftRear = new TalonSRX(RobotMap.DRIVE_LEFT_REAR_TALON);
 		driveLeftRear.configFactoryDefault();
         driveLeftRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-        driveLeftRear.setInverted(false);
+        driveLeftRear.setInverted(false);*/
         // driveLeftRear.config_kP(0, DRIVE_P, 0);
         // driveLeftRear.config_kI(0, DRIVE_I, 0);
         // driveLeftRear.config_kD(0, DRIVE_D, 0);
@@ -69,10 +99,15 @@ public class Drive extends Subsystem {
         // driveLeftRear.configVelocityMeasurementWindow(DRIVE_MEASUREMENT_WINDOW, 0);
         // driveLeftRear.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
 
-		driveRightFront = new TalonSRX(RobotMap.DRIVE_RIGHT_FRONT_TALON);
+		driveRightFrontSpark = new CANSparkMax(12, MotorType.kBrushless);
+		driveRightFrontSpark.restoreFactoryDefaults();
+		driveRightFrontSpark.setIdleMode(IdleMode.kBrake);
+		driveRightFrontSpark.setOpenLoopRampRate(0.125);
+		driveRightFrontSpark.setSmartCurrentLimit(60);
+		/*driveRightFront = new TalonSRX(RobotMap.DRIVE_RIGHT_FRONT_TALON);
 		driveRightFront.configFactoryDefault();
         driveRightFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-        driveRightFront.setInverted(false);
+        driveRightFront.setInverted(false);*/
         // driveRightFront.config_kP(0, DRIVE_P, 0);
         // driveRightFront.config_kI(0, DRIVE_I, 0);
         // driveRightFront.config_kD(0, DRIVE_D, 0);
@@ -84,10 +119,15 @@ public class Drive extends Subsystem {
         // driveRightFront.configVelocityMeasurementWindow(DRIVE_MEASUREMENT_WINDOW, 0);
         // driveRightFront.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
 
-		driveRightRear = new TalonSRX(RobotMap.DRIVE_RIGHT_REAR_TALON);
+		driveRightRearSpark = new CANSparkMax(13, MotorType.kBrushless);
+		driveRightRearSpark.restoreFactoryDefaults();
+		driveRightRearSpark.setIdleMode(IdleMode.kBrake);
+		driveRightRearSpark.setOpenLoopRampRate(0.125);
+		driveRightRearSpark.setSmartCurrentLimit(60);
+		/*driveRightRear = new TalonSRX(RobotMap.DRIVE_RIGHT_REAR_TALON);
 		driveRightRear.configFactoryDefault();
         driveRightRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-        driveRightRear.setInverted(false);
+        driveRightRear.setInverted(false);*/
         // driveRightRear.config_kP(0, DRIVE_P, 0);
         // driveRightRear.config_kI(0, DRIVE_I, 0);
         // driveRightRear.config_kD(0, DRIVE_D, 0);
@@ -177,10 +217,15 @@ public class Drive extends Subsystem {
     	double maxSpeed = Collections.max(Arrays.asList(speedLF, speedLR, speedRF, speedRR, 1.0));
 
     	// Set each swerve module, scaling the drive speeds by the maximum speed
-    	setSwerveModule(steerLeftFront, driveLeftFront, angleLF, speedLF / maxSpeed);
-    	setSwerveModule(steerLeftRear, driveLeftRear, angleLR, speedLR / maxSpeed);
-    	setSwerveModule(steerRightFront, driveRightFront, angleRF, speedRF / maxSpeed);
-		setSwerveModule(steerRightRear, driveRightRear, angleRR, speedRR / maxSpeed);
+    	// setSwerveModule(steerLeftFront, driveLeftFront, angleLF, speedLF / maxSpeed);
+    	// setSwerveModule(steerLeftRear, driveLeftRear, angleLR, speedLR / maxSpeed);
+    	// setSwerveModule(steerRightFront, driveRightFront, angleRF, speedRF / maxSpeed);
+		// setSwerveModule(steerRightRear, driveRightRear, angleRR, speedRR / maxSpeed);
+
+		setSwerveModule(steerLeftFront, driveLeftFrontSpark, angleLF, speedLF / maxSpeed);
+    	setSwerveModule(steerLeftRear, driveLeftRearSpark, angleLR, speedLR / maxSpeed);
+    	setSwerveModule(steerRightFront, driveRightFrontSpark, angleRF, speedRF / maxSpeed);
+		setSwerveModule(steerRightRear, driveRightRearSpark, angleRR, speedRR / maxSpeed);
 	}
 	
 	private double speed(double val1, double val2){
@@ -223,8 +268,9 @@ public class Drive extends Subsystem {
 		drive.set(ControlMode.PercentOutput, speed / MAX_SPEED);
 	}
 	*/	
-	
-	private void setSwerveModule(TalonSRX steer, TalonSRX drive, double angle, double speed) {
+
+	//private void setSwerveModule(TalonSRX steer, TalonSRX drive, double angle, double speed) {
+	private void setSwerveModule(TalonSRX steer, CANSparkMax drive, double angle, double speed) {
     	double currentPosition = steer.getSelectedSensorPosition(0);
     	double currentAngle = (currentPosition * 360.0 / ENCODER_COUNT_PER_ROTATION) % 360.0;
     	// The angle from the encoder is in the range [0, 360], but the swerve computations
@@ -253,13 +299,16 @@ public class Drive extends Subsystem {
 
 		double targetPosition = currentPosition + deltaDegrees * ENCODER_COUNT_PER_ROTATION / 360.0;
 		steer.set(ControlMode.Position, targetPosition);
-		drive.set(ControlMode.PercentOutput, speed);
+		//drive.set(ControlMode.PercentOutput, speed);
+		drive.set(speed);
 
 	}
 
 	//get Encoder values
-	public double getDriveLFEncoder() {
-		return driveLeftFront.getSelectedSensorPosition(0);
+
+	/*public double getDriveLFEncoder() {
+		
+		//return driveLeftFront.getSelectedSensorPosition(0);
 	}
 	
 	public double getDriveLREncoder() {
@@ -272,7 +321,7 @@ public class Drive extends Subsystem {
 	
 	public double getDriveRREncoder() {
 		return driveRightRear.getSelectedSensorPosition(0);
-	}
+	}*/
 	
 	public double getSteerLFEncoder() {
 		return steerLeftFront.getSelectedSensorPosition(0);
@@ -292,19 +341,23 @@ public class Drive extends Subsystem {
 
 	//setting motors
 	public void setDriveLeftFront(double speed){
-		driveLeftFront.set(ControlMode.PercentOutput, speed);
+		driveLeftFrontSpark.set(speed);
+		//driveLeftFront.set(ControlMode.PercentOutput, speed);
 	}
 
 	public void setDriveLeftRear(double speed){
-		driveLeftRear.set(ControlMode.PercentOutput, speed);
+		driveLeftRearSpark.set(speed);
+		//driveLeftRear.set(ControlMode.PercentOutput, speed);
 	}
 	
 	public void setDriveRightFront(double speed){
-		driveRightFront.set(ControlMode.PercentOutput, speed);
+		driveRightFrontSpark.set(speed);
+		//driveRightFront.set(ControlMode.PercentOutput, speed);
 	}
 	
 	public void setDriveRightRear(double speed){
-		driveRightRear.set(ControlMode.PercentOutput, speed);
+		driveRightRearSpark.set(speed);
+		//driveRightRear.set(ControlMode.PercentOutput, speed);
 	}
 	
 	public void setSteerLeftFront(double speed){
@@ -324,10 +377,14 @@ public class Drive extends Subsystem {
 	}
       public void encoderReset() {
 		
-		driveLeftFront.setSelectedSensorPosition(0, 0, 0);
-    	driveRightFront.setSelectedSensorPosition(0, 0, 0);
-    	driveLeftRear.setSelectedSensorPosition(0, 0, 0);
-		driveRightRear.setSelectedSensorPosition(0, 0, 0);
+		// driveLeftFrontSpark.setSelectedSensorPosition(0, 0, 0);
+    	// driveRightFrontSpark.setSelectedSensorPosition(0, 0, 0);
+    	// driveLeftRearSpark.setSelectedSensorPosition(0, 0, 0);
+		// driveRightRearSpark.setSelectedSensorPosition(0, 0, 0);
+		driveLeftFrontSpark.setEncPosition(0);
+		driveLeftRearSpark.setEncPosition(0);
+		driveRightFrontSpark.setEncPosition(0);
+		driveRightRearSpark.setEncPosition(0);
 	}
 	
 	@Override

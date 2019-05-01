@@ -172,16 +172,16 @@ public class FieldCentricSwerveDrive extends Command {
 			// if (rightMiddleTrack) strafe = 0.2;
 			// if (rightOuterTrack) strafe = 0.22;
 			// if (leftCenterTrack && rightCenterTrack) strafe = 0;
-			if (leftOuterTrack) strafe = -0.22;
-			if (leftOuterTrack && leftMiddleTrack) strafe = -0.21;
-			if (leftMiddleTrack) strafe = -0.195;
-			if (leftMiddleTrack && leftCenterTrack) strafe = -0.175;
-			if (leftCenterTrack) strafe = -0.165;
-			if (rightCenterTrack) strafe = 0.165;
-			if (rightCenterTrack && rightMiddleTrack) strafe = 0.175;
-			if (rightMiddleTrack) strafe = 0.195;
-			if (rightMiddleTrack && rightOuterTrack) strafe = 0.21;
-			if (rightOuterTrack) strafe = 0.22;
+			if (leftOuterTrack) strafe = -0.10;
+			if (leftOuterTrack && leftMiddleTrack) strafe = -0.9;//-0.21
+			if (leftMiddleTrack) strafe = -0.075;
+			if (leftMiddleTrack && leftCenterTrack) strafe = -0.075;
+			if (leftCenterTrack) strafe = -0.085;
+			if (rightCenterTrack) strafe = 0.085;//0.185
+			if (rightCenterTrack && rightMiddleTrack) strafe = 0.075;
+			if (rightMiddleTrack) strafe = 0.075;//0.195
+			if (rightMiddleTrack && rightOuterTrack) strafe = 0.9;
+			if (rightOuterTrack) strafe = 0.1;//0.22
 			if (leftCenterTrack && rightCenterTrack) strafe = 0;
 			
 			/*

@@ -51,7 +51,7 @@ public class DriveFieldCentric extends Command {
 			orientationError -= 360.0 * Math.signum(orientationError);
     	}
 		
-		if ((Math.abs(Robot.drive.getDriveLFEncoder()) < distance) &&
+		/*if ((Math.abs(Robot.drive.getDriveLFEncoder()) < distance) &&
 				(Math.abs(Robot.drive.getDriveLREncoder()) < distance) &&
 				(Math.abs(Robot.drive.getDriveRFEncoder()) < distance) &&
 				(Math.abs(Robot.drive.getDriveRREncoder()) < distance)) {
@@ -60,7 +60,7 @@ public class DriveFieldCentric extends Command {
 		} else {
 			forward = 0.0;
 			isDone = true;
-		}
+		}*/
 		// Rotate the velocity vector from the joystick by the difference between our
 		// current orientation and the current origin heading
 		
