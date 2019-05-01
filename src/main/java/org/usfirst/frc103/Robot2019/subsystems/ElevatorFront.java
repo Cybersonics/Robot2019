@@ -12,12 +12,12 @@ public class ElevatorFront extends Subsystem {
   private TalonSRX elevatorFront;
 
   public static final double DEADZONE = 0.05;
-  private static final double ELEVATOR_P = 10.0, ELEVATOR_I = 0.02, ELEVATOR_D = 0.0;
+  //private static final double ELEVATOR_P = 10.0, ELEVATOR_I = 0.02, ELEVATOR_D = 0.0;
   private static final int STATUS_FRAME_PERIOD = 5;
 
   public ElevatorFront() {
     elevatorFront = new TalonSRX(RobotMap.ELEVATOR_FRONT_TALON);
-    elevatorFront.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+    elevatorFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 /*    elevatorFront.config_kP(0, ELEVATOR_P, 0);
     elevatorFront.config_kI(0, ELEVATOR_I, 0);
     elevatorFront.config_kD(0, ELEVATOR_D, 0);
@@ -43,7 +43,6 @@ public class ElevatorFront extends Subsystem {
     elevatorFront.set(ControlMode.Position, position);
   }
 
-  //XXX: Not sure if this is right
   public void zeroElevatorFrontPosition() {
     elevatorFront.set(ControlMode.Position, 0.0);
   }

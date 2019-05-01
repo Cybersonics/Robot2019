@@ -1,16 +1,12 @@
 package org.usfirst.frc103.Robot2019.subsystems;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.usfirst.frc103.Robot2019.RobotMap;
 import org.usfirst.frc103.Robot2019.commands.FieldCentricSwerveDrive;
-
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.*;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Drive extends Subsystem {
@@ -36,9 +32,9 @@ public class Drive extends Subsystem {
 	public static final double DEADZONE = 0.08;
 	public static final double MAX_REVERSIBLE_SPEED_DIFFERENCE = 0.5 * MAX_SPEED;
 
-	private static final double DRIVE_P = 7.5, DRIVE_I = 0.0, DRIVE_D = 75.0, DRIVE_F = 1.7, DRIVE_RAMP_RATE = 0.2;
-    private static final int DRIVE_I_ZONE = 0, DRIVE_ALLOWABLE_ERROR = 0, DRIVE_MEASUREMENT_WINDOW = 1;
-    private static final VelocityMeasPeriod DRIVE_MEASUREMENT_PERIOD = VelocityMeasPeriod.Period_20Ms;
+	//private static final double DRIVE_P = 7.5, DRIVE_I = 0.0, DRIVE_D = 75.0, DRIVE_F = 1.7, DRIVE_RAMP_RATE = 0.2;
+    //private static final int DRIVE_I_ZONE = 0, DRIVE_ALLOWABLE_ERROR = 0, DRIVE_MEASUREMENT_WINDOW = 1;
+    //private static final VelocityMeasPeriod DRIVE_MEASUREMENT_PERIOD = VelocityMeasPeriod.Period_20Ms;
 	private static final double STEER_P = 10.0, STEER_I = 0.02, STEER_D = 0.0;
 	private static final int STATUS_FRAME_PERIOD = 5;
 
@@ -331,8 +327,8 @@ public class Drive extends Subsystem {
 		driveLeftFront.setSelectedSensorPosition(0, 0, 0);
     	driveRightFront.setSelectedSensorPosition(0, 0, 0);
     	driveLeftRear.setSelectedSensorPosition(0, 0, 0);
-    	driveRightRear.setSelectedSensorPosition(0, 0, 0);
-    }
+		driveRightRear.setSelectedSensorPosition(0, 0, 0);
+	}
 	
 	@Override
 	public void initDefaultCommand() {

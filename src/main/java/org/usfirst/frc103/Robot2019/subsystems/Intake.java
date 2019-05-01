@@ -1,21 +1,10 @@
 package org.usfirst.frc103.Robot2019.subsystems;
 
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc103.Robot2019.RobotMap;
-
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import org.usfirst.frc103.Robot2019.OI;
 import org.usfirst.frc103.Robot2019.Robot;
-
-import edu.wpi.first.wpilibj.XboxController;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-
 import org.usfirst.frc103.Robot2019.commands.IntakeControl;
 
 public class Intake extends Subsystem {
@@ -25,6 +14,7 @@ public class Intake extends Subsystem {
 
   public Intake() {
     intakeMotor = new TalonSRX(RobotMap.INTAKE_TALON);
+    intakeMotor.configFactoryDefault();
   }
 
   public void intakeRun(double intakeIn, double intakeOut) {
@@ -66,7 +56,6 @@ public class Intake extends Subsystem {
   public void driverBallIntakeIn() {
     intakeMotor.set(ControlMode.PercentOutput, -0.6);
   }
-
 
   @Override
   protected void initDefaultCommand() { 

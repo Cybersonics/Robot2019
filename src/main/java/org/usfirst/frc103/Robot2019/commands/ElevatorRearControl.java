@@ -2,19 +2,9 @@ package org.usfirst.frc103.Robot2019.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import org.usfirst.frc103.Robot2019.Robot;
-import org.usfirst.frc103.Robot2019.RobotMap;
 
-import edu.wpi.first.wpilibj.XboxController;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-
-import org.usfirst.frc103.Robot2019.OI;
-
 
 public class ElevatorRearControl extends Command {
   boolean rearLiftLocked;

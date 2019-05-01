@@ -1,21 +1,8 @@
 package org.usfirst.frc103.Robot2019.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import org.usfirst.frc103.Robot2019.Robot;
-import org.usfirst.frc103.Robot2019.RobotMap;
-import org.usfirst.frc103.Robot2019.subsystems.Intake;
-
-import edu.wpi.first.wpilibj.XboxController;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-
-import org.usfirst.frc103.Robot2019.OI;
-
 
 public class IntakeControl extends Command {
   
@@ -33,9 +20,8 @@ public class IntakeControl extends Command {
   @Override
   protected void execute() {
     if (Robot.oi.leftJoy.getRawButton(2)) {
-      //Robot.intake.climbIntake();
       Robot.intake.driverIntakeIn();
-    } else if (Robot.oi.rightJoy.getRawButton(2)) {
+    } else if (Robot.oi.rightJoy.getRawButton(3)) {
       Robot.intake.driverIntakeOut();
     } else {
       Robot.intake.intakeRun(Robot.oi.controller.getTriggerAxis(Hand.kLeft), Robot.oi.controller.getTriggerAxis(Hand.kRight));
